@@ -1,0 +1,61 @@
+
+
+<%-- 
+    Document   : index
+    Created on : 14.04.2013, 16:32:25
+    Author     : miha
+--%>
+
+<%@ taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c'%> 
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="" >
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Интернет Магазин</title>
+    </head>
+    <body>
+        <div id="header">
+            <hr size="3" color="gray">
+            <p>
+                <a  href="helloPage.htm">Переход на главную страницу</a>
+                <a  href="cart.htm">Корзина</a>
+                <a  href="order.htm">Оформление заявки</a>
+                <a  href="customers.htm">Покупатели</a>
+            </p>        
+            <hr size="3" color="gray">
+            <table border="2" width="2" cellspacing="2" cellpadding="2">
+                <thead>
+                <h3>Категории</h3>
+
+                </thead>
+                <tbody>                                 
+                    <tr>
+                        <th>Категория</th>
+
+                        <c:forEach items="${category}" var="category"> 
+                            <td>
+                                <a href="<c:out value="${category.urlForController}"/>">
+                                    <c:out value="${category.nameProducts}"/> 
+                                </a>
+                            </td>
+                        </c:forEach>
+                    </tr> 
+
+
+                    <tr>
+                        <th>Наличие</th>
+                            <c:forEach items="${category}" var="category">
+                            <td><c:out value="${category.amount}"/></td>
+                        </c:forEach> 
+                    </tr> 
+
+
+                </tbody>
+
+            </table>
+            <hr size="3" color="gray">
+            <h4>Последняя добавленная вещь в корзину: <c:out value="${lastItem}"/> </h4>
+            <h4>Итого: <c:out value="${summaryPrice}"/> </h4>
+        </div>  
