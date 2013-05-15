@@ -13,7 +13,7 @@ import model.daoImpl.NotebookDAOImpl;
 
 /**
  *
- * @author miha
+ * @author Michael Shumenko
  */
 public class DAOShopFactory {
 

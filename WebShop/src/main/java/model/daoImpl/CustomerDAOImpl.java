@@ -15,7 +15,7 @@ import org.hibernate.criterion.Restrictions;
 
 /**
  *
- * @author miha
+ * @author Michael Shumenko
  */
 public class CustomerDAOImpl implements CustomerDAO {
 

@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  *
- * @author miha
+ * @author Michael Shumenko
  */
 public class CartImpl implements Cart {
 

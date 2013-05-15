@@ -15,7 +15,7 @@ import org.springframework.web.servlet.mvc.AbstractController;
 
 /**
  *
- * @author miha
+ * @author Michael Shumenko
  */
 public class CustomersController extends AbstractController {
 

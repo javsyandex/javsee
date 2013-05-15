@@ -1,7 +1,7 @@
 <%-- 
     Document   : cart
     Created on : 06.05.2013, 9:50:43
-    Author     : miha
+    Author     : Michael Shumenko
 --%>
 <%@ taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c'%> 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

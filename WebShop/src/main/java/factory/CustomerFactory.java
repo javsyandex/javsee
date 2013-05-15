@@ -11,7 +11,7 @@ import model.daoImpl.CustomerDAOImpl;
 
 /**
  *
- * @author miha
+ * @author Michael Shumenko
  */
 public class CustomerFactory {
 

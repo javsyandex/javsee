@@ -21,7 +21,7 @@ import service.cart.Cart;
 
 /**
  *
- * @author miha
+ * @author Michael Shumenko
  */
 public class CategoryController extends AbstractController {
 

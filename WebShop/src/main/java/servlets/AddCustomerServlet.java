@@ -21,7 +21,7 @@ import service.cart.Cart;
 
 /**
  *
- * @author miha
+ * @author Michael Shumenko
  */
 @WebServlet(name = "AddCustomerServlet", urlPatterns = {"/AddCustomerServlet"})
 public class AddCustomerServlet extends HttpServlet {

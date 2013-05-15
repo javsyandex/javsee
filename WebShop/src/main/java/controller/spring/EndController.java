@@ -18,7 +18,7 @@ import service.cart.Cart;
 
 /**
  *
- * @author miha
+ * @author Michael Shumenko
  */
 public class EndController extends AbstractController {
 

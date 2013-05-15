@@ -13,7 +13,7 @@ import javax.persistence.Id;
 
 /**
  *
- * @author miha
+ * @author Michael Shumenko
  */
 @Entity
 public class Notebook implements Serializable {

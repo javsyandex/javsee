@@ -11,7 +11,7 @@ import org.springframework.web.servlet.mvc.AbstractController;
 
 /**
  *
- * @author miha
+ * @author Michael Shumenko
  */
 public class ErrorController extends AbstractController {
     

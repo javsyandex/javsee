@@ -9,7 +9,7 @@ import service.cart.CartImpl;
 
 /**
  *
- * @author miha
+ * @author Michael Shumenko
  */
 public class CartShopFactory {
 

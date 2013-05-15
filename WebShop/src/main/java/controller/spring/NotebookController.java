@@ -22,7 +22,7 @@ import service.cart.Cart;
 
 /**
  *
- * @author miha
+ * @author Michael Shumenko
  */
 public class NotebookController extends AbstractController {
 

@@ -6,7 +6,7 @@ package model.entity;
 
 /**
  *
- * @author miha
+ * @author Michael Shumenko
  */
 import java.io.Serializable;
 import javax.persistence.*;

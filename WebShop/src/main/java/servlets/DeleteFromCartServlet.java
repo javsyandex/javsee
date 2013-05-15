@@ -19,7 +19,7 @@ import service.cart.Cart;
 
 /**
  *
- * @author miha
+ * @author Michael Shumenko
  */
 @WebServlet(name = "DeleteFromCartServlet", urlPatterns = {"/delete"})
 public class DeleteFromCartServlet extends HttpServlet {

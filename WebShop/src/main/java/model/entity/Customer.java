@@ -9,7 +9,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Size;
 /**
  *
- * @author miha
+ * @author Michael Shumenko
  */
 @Entity
 public class Customer implements Serializable {

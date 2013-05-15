@@ -1,7 +1,7 @@
 <%-- 
     Document   : hello
     Created on : 05.05.2013, 5:42:22
-    Author     : miha
+    Author     : Michael Shumenko
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

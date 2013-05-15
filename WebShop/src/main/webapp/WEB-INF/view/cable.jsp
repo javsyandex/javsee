@@ -1,7 +1,7 @@
 <%-- 
     Document   : Cable
     Created on : 15.04.2013, 22:32:41
-    Author     : miha
+    Author     : Michael Shumenko
 --%>
 
 <%@ taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c'%>  

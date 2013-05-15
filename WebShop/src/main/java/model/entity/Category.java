@@ -9,7 +9,7 @@ import javax.persistence.*;
 
 /**
  *
- * @author miha
+ * @author Michael Shumenko
  */
 @Entity
 public class Category implements Serializable {

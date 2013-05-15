@@ -10,7 +10,7 @@ import model.entity.CustomerOrder;
 
 /**
  *
- * @author miha
+ * @author Michael Shumenko
  */
 public interface CustomerDAO {
    public List getAll();

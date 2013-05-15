@@ -14,7 +14,7 @@ import org.hibernate.Session;
 
 /**
  *
- * @author miha
+ * @author Michael Shumenko
  */
 public class BookDAOImpl implements DAO {
     

@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  *
- * @author miha
+ * @author Michael Shumenko
  */
 public interface DAO {
     public List getAll();    

@@ -6,7 +6,7 @@ package factory;
 
 /**
  *
- * @author miha
+ * @author Michael Shumenko
  */
 public enum DAOTypes {
    CATEGORY,BOOK,NOTEBOOK,CAMERA,CABLE,CUSTOMER 
