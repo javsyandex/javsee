@@ -33,8 +33,27 @@
                                         <li class="active">
                                             <a href="helloPage.htm">Главная</a>
                                         </li>
-                                        <li>
-                                            <a href="order.htm">Оформление заявки</a>
+                                        <li class="dropdown">
+                                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">Категории<strong class="caret"></strong></a>
+                                            <ul class="dropdown-menu">
+                                                <li class="nav-header">
+                                                    Компьютеры
+                                                </li>
+                                                <li>
+                                                    <a href="notebook.htm">Ноутбуки</a>
+                                                </li>
+                                                <li class="divider">
+                                                </li>
+                                                <li class="nav-header">
+                                                    Системы видеонаблюдения
+                                                </li>
+                                                <li>
+                                                    <a href="camera.htm">Камеры</a>
+                                                </li>
+                                                <li>
+                                                    <a href="cable.htm">Кабель</a>
+                                                </li>
+                                            </ul>
                                         </li>
                                         <li>
                                             <a href="customers.htm">Покупатели</a>
@@ -56,56 +75,51 @@
                     </div>
                 </div>
             </div>
-            <div class="row-fluid">
+            <div id="left">
+                <h3>Итого: <c:out value="${summaryPrice}"/>  </h3>
+                <h4>После ознакомления со списком вещей приступайте к оформлению заявки</h4>
+                <table class="table table-bordered" border="2" width="2" cellspacing="2" cellpadding="2" >
+                    <thead>
 
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>Товар</th>
 
-            </div>
-        </div>  
-        <div id="left">
-            <h3>Итого: <c:out value="${summaryPrice}"/>  </h3>
-            <h4>После ознакомления со списком вещей приступайте к оформлению заявки</h4>
-            <table class="table table-bordered" border="2" width="2" cellspacing="2" cellpadding="2" >
-                <thead>
+                            <c:forEach items="${name}" var="name"> 
+                                <td><c:out value="${name}"/> </td>
+                            </c:forEach>
 
-                </thead>
-                <tbody>
-                    <tr>
-                        <th>Товар</th>
+                        </tr> 
 
-                        <c:forEach items="${name}" var="name"> 
-                            <td><c:out value="${name}"/> </td>
-                        </c:forEach>
+                        <tr>
+                            <th>Цена</th>
+                                <c:forEach items="${price}" var="price">
+                                <td>
+                                    <c:out value="${price}"/>
+                                </td>           
+                            </c:forEach> 
+                        </tr>
 
-                    </tr> 
+                    </tbody>
+                </table>
+                <hr size="3" color="gray">
+            </div>  
 
-                    <tr>
-                        <th>Цена</th>
-                            <c:forEach items="${price}" var="price">
-                            <td>
-                                <c:out value="${price}"/>
-                            </td>           
-                        </c:forEach> 
-                    </tr>
+            <div id="right">
+                <h3>Оставьте свои данные:</h3>
+                <form action="AddCustomerServlet" method="POST">
+                    <p>Введите ваше имя : <input class="input-prepend" type="text" name="customerName" value="" size="20" /></p>
+                    <p>Введите ваш emаil: <input class="input-prepend" type="text" name="customerEmailAdress" value="" size="20" /></p>
+                    <p>Номер вашей кредитки: <input class="input-prepend" type="text" name="customerCreditCart" value="" size="20" /></p>
+                    <p>
+                        <input class="btn btn-success" type="submit" value="Отправить заявку" name="name" />
+                        <input type="hidden" name="target"  value="/endOrder.htm">
+                    </p>
 
-                </tbody>
-            </table>
-            <hr size="3" color="gray">
-        </div>  
+                </form>
 
-        <div id="right">
-            <h3>Оставьте свои данные:</h3>
-            <form action="AddCustomerServlet" method="POST">
-                <p>Введите ваше имя : <input class="input-prepend" type="text" name="customerName" value="" size="20" /></p>
-                <p>Введите ваш emаil: <input class="input-prepend" type="text" name="customerEmailAdress" value="" size="20" /></p>
-                <p>Номер вашей кредитки: <input class="input-prepend" type="text" name="customerCreditCart" value="" size="20" /></p>
-                <p>
-                    <input class="btn btn-success" type="submit" value="Отправить заявку" name="name" />
-                    <input type="hidden" name="target"  value="/endOrder.htm">
-                </p>
-
-            </form>
-
-        </div> 
-    </div>         
-</body>
+            </div> 
+        </div>         
+    </body>
 </html>

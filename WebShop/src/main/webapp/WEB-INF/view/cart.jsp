@@ -33,8 +33,27 @@
                                         <li class="active">
                                             <a href="helloPage.htm">Главная</a>
                                         </li>
-                                        <li>
-                                            <a href="order.htm">Оформление заявки</a>
+                                        <li class="dropdown">
+                                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">Категории<strong class="caret"></strong></a>
+                                            <ul class="dropdown-menu">
+                                                <li class="nav-header">
+                                                    Компьютеры
+                                                </li>
+                                                <li>
+                                                    <a href="notebook.htm">Ноутбуки</a>
+                                                </li>
+                                                <li class="divider">
+                                                </li>
+                                                <li class="nav-header">
+                                                    Системы видеонаблюдения
+                                                </li>
+                                                <li>
+                                                    <a href="camera.htm">Камеры</a>
+                                                </li>
+                                                <li>
+                                                    <a href="cable.htm">Кабель</a>
+                                                </li>
+                                            </ul>
                                         </li>
                                         <li>
                                             <a href="customers.htm">Покупатели</a>
@@ -56,56 +75,51 @@
                     </div>
                 </div>
             </div>
-            <div class="row-fluid">
+            <div id="cart">
 
+                <h3 class="carousel-caption">Корзина</h3>
 
+                <h4>Последняя добавленная вещь в корзину:  <c:out value="${lastItem}"/></h4>
+                <h4>Итого:  <c:out value="${summaryPrice}"/></h4>
+                <table class="table table-bordered" border="2" width="2" cellspacing="2" cellpadding="2" >
+                    <thead>
+                    <h3>Корзина</h3>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>Товар</th>
+
+                            <c:forEach items="${name}" var="name"> 
+                                <td><c:out value="${name}"/> </td>
+                            </c:forEach>
+
+                        </tr> 
+                        <tr>
+                            <th>Цена</th>
+                                <c:forEach items="${price}" var="price">
+                                <td>
+                                    <c:out value="${price}"/>
+                                </td>           
+                            </c:forEach> 
+                        </tr> 
+                        <tr>
+                            <th>Убрать</th>
+                                <c:forEach items="${name}" var="name">
+                                <td>
+                                    <form action="delete" method="post" >
+                                        <input type="submit" name="" value="Убрать" />                         
+                                        <input type="hidden" name="nameItem"  value="${name}">
+                                        <input type="hidden" name="target"  value="/cart.htm">
+                                    </form>
+                                </td>           
+                            </c:forEach> 
+                        </tr> 
+                    </tbody>
+                </table>
+
+                <form action="order.htm" method="post">
+                    <input class="btn btn-success" type="submit" value="Оформить покупку" name="Оформить покупку" />
+                </form>
             </div>
-        </div>
-        <div id="cart">
-
-            <h3 class="carousel-caption">Корзина</h3>
-
-            <h4>Последняя добавленная вещь в корзину:  <c:out value="${lastItem}"/></h4>
-            <h4>Итого:  <c:out value="${summaryPrice}"/></h4>
-            <table class="table table-bordered" border="2" width="2" cellspacing="2" cellpadding="2" >
-                <thead>
-                <h3>Корзина</h3>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th>Товар</th>
-
-                        <c:forEach items="${name}" var="name"> 
-                            <td><c:out value="${name}"/> </td>
-                        </c:forEach>
-                            
-                    </tr> 
-                    <tr>
-                        <th>Цена</th>
-                            <c:forEach items="${price}" var="price">
-                            <td>
-                                <c:out value="${price}"/>
-                            </td>           
-                        </c:forEach> 
-                    </tr> 
-                    <tr>
-                        <th>Убрать</th>
-                            <c:forEach items="${name}" var="name">
-                            <td>
-                                <form action="delete" method="post" >
-                                    <input type="submit" name="" value="Убрать" />                         
-                                    <input type="hidden" name="nameItem"  value="${name}">
-                                    <input type="hidden" name="target"  value="/cart.htm">
-                                </form>
-                            </td>           
-                        </c:forEach> 
-                    </tr> 
-                </tbody>
-            </table>
-
-            <form action="order.htm" method="post">
-                <input class="btn btn-success" type="submit" value="Оформить покупку" name="Оформить покупку" />
-            </form>
-        </div>
     </body>
 </html>

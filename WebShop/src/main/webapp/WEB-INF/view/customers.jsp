@@ -33,8 +33,27 @@
                                         <li class="active">
                                             <a href="helloPage.htm">Главная</a>
                                         </li>
-                                        <li>
-                                            <a href="order.htm">Оформление заявки</a>
+                                        <li class="dropdown">
+                                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">Категории<strong class="caret"></strong></a>
+                                            <ul class="dropdown-menu">
+                                                <li class="nav-header">
+                                                    Компьютеры
+                                                </li>
+                                                <li>
+                                                    <a href="notebook.htm">Ноутбуки</a>
+                                                </li>
+                                                <li class="divider">
+                                                </li>
+                                                <li class="nav-header">
+                                                    Системы видеонаблюдения
+                                                </li>
+                                                <li>
+                                                    <a href="camera.htm">Камеры</a>
+                                                </li>
+                                                <li>
+                                                    <a href="cable.htm">Кабель</a>
+                                                </li>
+                                            </ul>
                                         </li>
                                         <li>
                                             <a href="customers.htm">Покупатели</a>
@@ -56,12 +75,6 @@
                     </div>
                 </div>
             </div>
-            <div class="row-fluid">
-
-
-            </div>
-        </div>
-
         <div id="customers">
             <table class="table table-bordered" border="2" width="2" cellspacing="2" cellpadding="2" >
                 <thead>
