@@ -1,7 +1,14 @@
- <%@page contentType="text/html" pageEncoding="UTF-8"%>
-    <div id="footer">
-        <hr size="3" color="gray">
-        <p>Created by Mikhail Shumenko 2013</p>
-    </div>   
-    </body>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<div class="navbar navbar-inverse navbar-text navbar-static-top">
+    <nav class="navbar-inner">
+
+        <ul class="nav">
+            <li>
+                <p class="signature">Created by Michael Shumenko 2013</p>
+            </li>
+        </ul>                    
+    </nav>
+</div>  
+</body>
 </html>

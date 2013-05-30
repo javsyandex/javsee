@@ -1,13 +1,14 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c'%>  
+<%@ taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c'%> 
+
 <div id="book">
     <h2>Выбрана категория: Книги</h2>
 
     <div id="leftBook">
 
 
-        <table border="2" width="2" cellspacing="2" cellpadding="2">
+        <table class="table table-bordered" border="2" width="2" cellspacing="2" cellpadding="2">
             <thead>
                 <tr>
                     <th>№</th>
@@ -33,7 +34,7 @@
                         <td><c:out value="${book.amount}"/></td>
                         <td>
                             <form action="addToCartServlet" method="post" >
-                                <input type="submit" name="" value="В корзину" /> 
+                                <input class="btn btn-inverse" type="submit" name="" value="В корзину" /> 
                                 <input type="hidden" name="infoItem"  value="${book.author}">
                                 <input type="hidden" name="nameItem"  value="${book.nameBook}">
                                 <input type="hidden" name="priceItem"  value="${book.price}">                        

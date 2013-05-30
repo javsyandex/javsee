@@ -10,8 +10,10 @@
 <div id="notebook">
 
     <h3>Выбрана категория: Ноутбуки</h3>
-
-    <table border="2" width="2" cellspacing="2" cellpadding="2" >
+    <hr size="3" color="gray">
+    <h4>Последняя добавленная вещь в корзину: <c:out value="${lastItem}"/> </h4>
+    <h4>Итого: <c:out value="${summaryPrice}"/> </h4>
+    <table class="table table-bordered" border="2" width="2" cellspacing="2" cellpadding="2" >
         <thead>
             <tr>
                 <th>№</th>
@@ -33,7 +35,7 @@
                     <td><c:out value="${notebook.amount}"/></td>
                     <td>
                         <form action="addToCartServlet" method="post" >
-                            <input type="submit" name="" value="В корзину" /> 
+                            <input class="btn btn-inverse" type="submit" name="" value="В корзину" /> 
                             <input type="hidden" name="infoItem"  value="${notebook.modelNotebook}">
                             <input type="hidden" name="nameItem"  value="${notebook.nameNotebook}">
                             <input type="hidden" name="priceItem"  value="${notebook.price}">                        
