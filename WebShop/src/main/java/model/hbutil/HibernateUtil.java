@@ -4,12 +4,9 @@
  */
 package model.hbutil;
 
-
-import model.entity.Book;
 import model.entity.Cable;
 import model.entity.Camera;
 import model.entity.Notebook;
-import model.entity.Category;
 import model.entity.Customer;
 import model.entity.CustomerOrder;
 import org.hibernate.cfg.AnnotationConfiguration;
@@ -34,9 +31,8 @@ public class HibernateUtil {
           AnnotationConfiguration ac = new AnnotationConfiguration();
           //Это нам нужно для того чтобы мы добавили все наши классы сущности 
           //каждого нового вашего Entity сдесь надо прописать, не пропишете не будет работать 
-          ac.addAnnotatedClass(Category.class).addAnnotatedClass(Cable.class).
-                  addAnnotatedClass(Camera.class).addAnnotatedClass(Notebook.class).
-                  addAnnotatedClass(Book.class).addAnnotatedClass(Customer.class).addAnnotatedClass(CustomerOrder.class);
+          ac.addAnnotatedClass(Cable.class).addAnnotatedClass(Camera.class).addAnnotatedClass(Notebook.class).
+                  addAnnotatedClass(Customer.class).addAnnotatedClass(CustomerOrder.class);
                   
                   
           //Вот мы собственно и создали нашу Фабрику сессий. 

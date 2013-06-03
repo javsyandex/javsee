@@ -16,13 +16,11 @@
         <param-name>contextConfigLocation</param-name>
         <param-value>
             /WEB-INF/dispatcher-service.xml 
-            /WEB-INF/dispatcher-data.xml 
         </param-value>
     </context-param>
     <jsp-config>
         <jsp-property-group>
             <description>header and footer</description>
-            <url-pattern>/WEB-INF/view/book.jsp</url-pattern>
             <url-pattern>/index.jsp</url-pattern>
             <url-pattern>/WEB-INF/view/hello.jsp</url-pattern>
             <url-pattern>/WEB-INF/view/cable.jsp</url-pattern>

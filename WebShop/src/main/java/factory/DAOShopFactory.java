@@ -5,10 +5,8 @@
 package factory;
 
 import model.dao.DAO;
-import model.daoImpl.BookDAOImpl;
 import model.daoImpl.CableDAOImpl;
 import model.daoImpl.CameraDAOImpl;
-import model.daoImpl.CategoryDAOImpl;
 import model.daoImpl.NotebookDAOImpl;
 
 /**
@@ -32,9 +30,6 @@ public class DAOShopFactory {
     public DAO getDAOFactory(DAOTypes daoType) {
         DAO result = null;
         switch (daoType) {
-            case BOOK:
-                result = new BookDAOImpl();
-                break;
 
             case NOTEBOOK:
                 result = new NotebookDAOImpl();
@@ -47,11 +42,6 @@ public class DAOShopFactory {
             case CAMERA:
                 result = new CameraDAOImpl();
                 break;
-
-            case CATEGORY:
-                result = new CategoryDAOImpl();
-                break;
-
         }
 
 

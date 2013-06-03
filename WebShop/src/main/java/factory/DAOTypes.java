@@ -9,5 +9,5 @@ package factory;
  * @author Michael Shumenko
  */
 public enum DAOTypes {
-   CATEGORY,BOOK,NOTEBOOK,CAMERA,CABLE,CUSTOMER 
+  BOOK,NOTEBOOK,CAMERA,CABLE,CUSTOMER 
 }

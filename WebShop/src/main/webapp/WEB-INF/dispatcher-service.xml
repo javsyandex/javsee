@@ -22,8 +22,9 @@
           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd
 ">
-    <bean name="categoryController" 
-          class="controller.spring.CategoryController">          
+    
+    <bean name="helloPageController" 
+          class="controller.spring.HelloPageController">        
     </bean>
     
     <bean name="viewItemsController" 
@@ -49,32 +50,19 @@
     <bean name="errorController" 
           class="controller.spring.ErrorController">          
     </bean>
-    
-    <bean name="notebookController" 
-          class="controller.spring.NotebookController">          
-    </bean>
-    
-    <bean name="cameraController" 
-          class="controller.spring.CameraController">          
-    </bean>
-    
-    <bean name="bookController" 
-          class="controller.spring.BookController">          
-    </bean>
-    
-    <bean name="cableController" 
-          class="controller.spring.CableController">          
+
+    <bean name="viewListProductsFromSelectedCategoryController" 
+          class="controller.spring.ViewListProductsFromSelectedCategoryController">          
     </bean>
     
     <bean id="simpleUrlMapping" 
           class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping"> 
         <property name="mappings"> 
             <props> 
-                <prop key="/helloPage.htm">categoryController</prop>
-                <prop key="/notebook.htm">notebookController</prop>
-                <prop key="/camera.htm">cameraController</prop>
-                <prop key="/book.htm">bookController</prop>
-                <prop key="/cable.htm">cableController</prop>
+                <prop key="/helloPage.htm">helloPageController</prop>
+                <prop key="/notebook.htm">viewListProductsFromSelectedCategoryController</prop>
+                <prop key="/camera.htm">viewListProductsFromSelectedCategoryController</prop>
+                <prop key="/cable.htm">viewListProductsFromSelectedCategoryController</prop>
                 <prop key="/error.htm">errorController</prop>
                 <prop key="/cart.htm">cartController</prop> 
                 <prop key="/order.htm">orderController</prop>
