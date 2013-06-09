@@ -1,0 +1,14 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<div class="navbar navbar-text navbar-static-top">
+    <nav class="navbar-inner">
+
+        <ul class="nav">
+            <li>
+                <p class="signature">Created by Michael Shumenko 2013</p>
+            </li>
+        </ul>                    
+    </nav>
+</div>  
+</body>
+</html>

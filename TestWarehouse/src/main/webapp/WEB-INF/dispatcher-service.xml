@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:util="http://www.springframework.org/schema/util"
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+          http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+          http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+          http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+">
+    <bean id="customer" class="ua.testwarehouse.shumenko.model.daoImpl.CustomerDAOImpl"/>
+    
+    <bean id="product" class="ua.testwarehouse.shumenko.model.daoImpl.ProductDAOImpl"/>
+    
+    <bean id="shipper" class="ua.testwarehouse.shumenko.model.daoImpl.ShipperDAOImpl"/>
+    
+    <bean id="warehouse" class="ua.testwarehouse.shumenko.model.daoImpl.WarehouseDAOImpl"/>
+    
+    <bean id="viewIncomingDocument" class="ua.testwarehouse.shumenko.model.daoImpl.IncomingDocumentDAOImpl"/>
+    
+    <bean id="viewExpenseDocument" class="ua.testwarehouse.shumenko.model.daoImpl.ExpenseDocumentDAOImpl"/>
+    
+    <bean name="helloPageController" class="ua.testwarehouse.shumenko.controller.HelloPageController"/>
+    
+    <bean name="viewIncomingDocumentController" class="ua.testwarehouse.shumenko.controller.ViewIncomingDocumentController"
+          p:shipper-ref="shipper"
+          p:warehouse-ref="warehouse"
+          p:incomingDocument-ref="viewIncomingDocument"
+    />
+                   
+    <bean name="viewExpenseDocumentController" class="ua.testwarehouse.shumenko.controller.ViewExpenseDocumentController"
+          p:customer-ref="customer"
+          p:warehouse-ref="warehouse"
+          p:expenseDocument-ref="viewExpenseDocument"
+    />
+    
+    <bean name="viewRemainderPageController" class="ua.testwarehouse.shumenko.controller.ViewRemainderPageController"
+          p:warehouse-ref="warehouse"
+          p:product-ref="product"
+          p:incomingDocument-ref="viewIncomingDocument" 
+          p:expenseDocument-ref="viewExpenseDocument"   
+    />
+    
+    <bean name="viewCustomerPageController" class="ua.testwarehouse.shumenko.controller.ViewCustomerPageController"/>
+    
+    <bean name="viewShipperPageController" class="ua.testwarehouse.shumenko.controller.ViewShipperPageController"/>
+    
+    <bean id="simpleUrlMapping" 
+          class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping"> 
+        <property name="mappings"> 
+            <props> 
+                <prop key="/helloPage.htm">helloPageController</prop>
+                <prop key="/incoming.htm">viewIncomingDocumentController</prop>
+                <prop key="/expense.htm">viewExpenseDocumentController</prop>
+                <prop key="/customer.htm">viewCustomerPageController</prop>
+                <prop key="/shipper.htm">viewShipperPageController</prop>
+                <prop key="/remainder.htm">viewRemainderPageController</prop>
+            </props> 
+        </property> 
+    </bean>
+</beans>

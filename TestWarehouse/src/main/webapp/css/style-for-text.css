@@ -1,0 +1,19 @@
+/* 
+    Document   : styleForText
+    Created on : 27.05.2013, 4:45:48
+    Author     : miha
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+.signature { 
+    display: block;
+    font-family: Verdana,Arial,Helvetica,sans-serif;
+    font-size: 12px;
+    font-style: italic;
+    color: silver;    
+    font-weight: normal;
+    margin-left: 40px;
+    text-decoration: underline;
+}
+
