@@ -1,10 +1,7 @@
-
-
-
 <%-- 
-    Document   : customer
-    Created on : 14.04.2013, 16:32:25
-    Author     : Mihael Shumenko
+    Document   : remainder
+    Created on : 09.06.2013, 16:23:21
+    Author     : miha
 --%>
 
 <%@ taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c'%> 
@@ -47,7 +44,7 @@
                                         <li class="">
                                             <a href="helloPage.htm">Главная</a>
                                         </li>
-                                        <li class="dropdown">
+                                        <li class="dropdown active">
                                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">Учет<strong class="caret"></strong></a>
                                             <ul class="dropdown-menu">
                                                 <li class="nav-header">
@@ -77,7 +74,7 @@
                                         <li class="">
                                             <a href="shipper.htm">Поставщикам</a>
                                         </li>
-                                        <li class="active">
+                                        <li class="">
                                             <a href="customer.htm">Покупателям</a>
                                         </li>
                                     </ul>
@@ -96,5 +93,28 @@
             <div class="row-fluid">
 
 
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="well well-large">
+                <h4 class="help-block" >Документ «Остатки»</h4>
+                <h5 class="help-block">Выберете дату, по которой нужно просчитать остатки</h5>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="well well-large">
+                <form action="remainder.htm" method="post">
+                    <strong>Дата:  </strong><input type="text" name="date" id="datepicker" style="width: 85px"/>
+                    <div>
+                        <input class="btn btn-inverse btn-small" type="submit" value="Просмотреть «Остатки»"/>
+                    </div>
+                </form>  
+                <div>
+
+
+
+                </div>
             </div>
         </div>

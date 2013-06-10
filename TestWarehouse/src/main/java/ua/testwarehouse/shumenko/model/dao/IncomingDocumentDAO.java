@@ -15,5 +15,5 @@ import ua.testwarehouse.shumenko.model.entity.IncomingDocument;
 public interface IncomingDocumentDAO {
     public List<IncomingDocument> getInfoToIncomingDocument(Date fromDeliveryDate,
             Date byDeliveryDate,String shipper,String warehouse);
-    public List<IncomingDocument> getInfoToRemainderDocument(Date deliveryDate);
+    public List<IncomingDocument> getInfoToRemainderDocument(Date deliveryDate, String warehouse,String product);
 }

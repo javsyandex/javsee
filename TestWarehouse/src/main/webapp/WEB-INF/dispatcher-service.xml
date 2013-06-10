@@ -11,7 +11,7 @@
           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
 ">
-    <bean id="customer" class="ua.testwarehouse.shumenko.model.daoImpl.CustomerDAOImpl"/>
+    <bean id="customer" class="ua.testwarehouse.shumenko.model.daoImpl.CustomerDAOImpl"/>    
     
     <bean id="product" class="ua.testwarehouse.shumenko.model.daoImpl.ProductDAOImpl"/>
     
@@ -41,12 +41,20 @@
           p:warehouse-ref="warehouse"
           p:product-ref="product"
           p:incomingDocument-ref="viewIncomingDocument" 
-          p:expenseDocument-ref="viewExpenseDocument"   
+          p:expenseDocument-ref="viewExpenseDocument" 
+          p:remainder-ref="remainderList"           
     />
     
     <bean name="viewCustomerPageController" class="ua.testwarehouse.shumenko.controller.ViewCustomerPageController"/>
     
     <bean name="viewShipperPageController" class="ua.testwarehouse.shumenko.controller.ViewShipperPageController"/>
+    
+    <bean name="remainderList" class="service.GetRemainderList"
+          p:expenseDocumentDao-ref="viewExpenseDocument"
+          p:incomingDocumentDao-ref="viewIncomingDocument"
+          p:productDao-ref="product"
+          p:warehouseDao-ref="warehouse"
+    />
     
     <bean id="simpleUrlMapping" 
           class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping"> 

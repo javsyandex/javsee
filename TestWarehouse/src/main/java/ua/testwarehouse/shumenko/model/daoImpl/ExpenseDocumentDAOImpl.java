@@ -23,6 +23,7 @@ public class ExpenseDocumentDAOImpl implements ExpenseDocumentDAO {
     private static final String DELIVERY_DATE_COLUMN = "deliveryDate";
     private static final String CUSTOMER_COLUMN = "customer";
     private static final String WAREHOUSE_COLUMN = "warehouse";
+    private static final String PRODUCT_COLUMN = "product";
 
     @Override
     public List<ExpenseDocument> getInfoToExpenseDocument(Date fromDeliveryDate, Date byDeliveryDate,
@@ -57,13 +58,14 @@ public class ExpenseDocumentDAOImpl implements ExpenseDocumentDAO {
     }
 
     @Override
-    public List<ExpenseDocument> getInfoToRemainderDocument(Date deliveryDate) {
+    public List<ExpenseDocument> getInfoToRemainderDocument(Date deliveryDate, String warehouse, String product) {
         ArrayList<ExpenseDocument> result = null;
         Session session = WarehouseHibernateUtil.getSessionFactory().openSession();
         try {
             session.beginTransaction().begin();
             Criteria criteria = session.createCriteria(ExpenseDocument.class);
-            Criteria remainderDocument = criteria.add(Restrictions.eq(DELIVERY_DATE_COLUMN, deliveryDate));
+            Criteria remainderDocument = criteria.add(Restrictions.eq(DELIVERY_DATE_COLUMN, deliveryDate)).
+                    add(Restrictions.eq(WAREHOUSE_COLUMN, warehouse)).add(Restrictions.eq(PRODUCT_COLUMN, product));
             result = (ArrayList<ExpenseDocument>) remainderDocument.list();
 
         } catch (Exception e) {

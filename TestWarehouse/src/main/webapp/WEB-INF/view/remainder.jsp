@@ -121,12 +121,64 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <c:forEach items="${product}" var="product">  
+                            <c:forEach items="${remainder}" var="remainder">  
                                 <tr>
-                                    <th><c:out value="${product.product}"/></th>
-                                        <c:forEach items="${warehouse}" var="warehouse">
-                                        <td></td>
-                                    </c:forEach>
+                                    <td><c:out value="${remainder.product}"/></td>
+                                    <td>
+                                        <c:choose>
+                                            <c:when test="${remainder.amountWH1>0}">
+                                                <c:out value="${remainder.priceWH1}"/> грн.<br>
+                                                <c:out value="${remainder.amountWH1}"/> шт.
+                                            </c:when>
+                                            <c:otherwise>
+                                                --
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </td>
+                                    <td>
+                                        <c:choose>
+                                            <c:when test="${remainder.amountWH2>0}">
+                                                <c:out value="${remainder.priceWH2}"/> грн.<br>
+                                                <c:out value="${remainder.amountWH2}"/> шт.
+                                            </c:when>
+                                            <c:otherwise>
+                                                --
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </td>
+                                    <td>
+                                        <c:choose>
+                                            <c:when test="${remainder.amountWH3>0}">
+                                                <c:out value="${remainder.priceWH3}"/> грн.<br>
+                                                <c:out value="${remainder.amountWH3}"/> шт.
+                                            </c:when>
+                                            <c:otherwise>
+                                                --
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </td>
+                                    <td>
+                                        <c:choose>
+                                            <c:when test="${remainder.amountWH4>0}">
+                                                <c:out value="${remainder.priceWH4}"/> грн.<br>
+                                                <c:out value="${remainder.amountWH4}"/> шт.
+                                            </c:when>
+                                            <c:otherwise>
+                                                --
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </td>>
+                                    <td>
+                                        <c:choose>
+                                            <c:when test="${remainder.amountWH5>0}">
+                                                <c:out value="${remainder.priceWH5}"/> грн.<br>
+                                                <c:out value="${remainder.amountWH5}"/> шт.
+                                            </c:when>
+                                            <c:otherwise>
+                                                --
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </td>
                                 </tr>
                             </c:forEach>
                         </tbody>

@@ -23,6 +23,7 @@ public class IncomingDocumentDAOImpl implements IncomingDocumentDAO {
     private static final String DELIVERY_DATE_COLUMN = "deliveryDate";
     private static final String SHIPPER_COLUMN = "shipper";
     private static final String WAREHOUSE_COLUMN = "warehouse";
+    private static final String PRODUCT_COLUMN = "product";
 
     @Override
     public List<IncomingDocument> getInfoToIncomingDocument(Date fromDeliveryDate,
@@ -58,13 +59,14 @@ public class IncomingDocumentDAOImpl implements IncomingDocumentDAO {
     }
 
     @Override
-    public List<IncomingDocument> getInfoToRemainderDocument(Date deliveryDate) {
+    public List<IncomingDocument> getInfoToRemainderDocument(Date deliveryDate, String warehouse, String product) {
         ArrayList<IncomingDocument> result = null;
         Session session = WarehouseHibernateUtil.getSessionFactory().openSession();
         try {
             session.beginTransaction().begin();
             Criteria criteria = session.createCriteria(IncomingDocument.class);
-            Criteria remainderDocument = criteria.add(Restrictions.eq(DELIVERY_DATE_COLUMN, deliveryDate));
+            Criteria remainderDocument = criteria.add(Restrictions.eq(DELIVERY_DATE_COLUMN, deliveryDate)).
+                    add(Restrictions.eq(WAREHOUSE_COLUMN, warehouse)).add(Restrictions.eq(PRODUCT_COLUMN, product));
             result = (ArrayList<IncomingDocument>) remainderDocument.list();
 
         } catch (Exception e) {
