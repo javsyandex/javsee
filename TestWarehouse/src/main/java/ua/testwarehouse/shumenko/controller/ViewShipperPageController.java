@@ -6,11 +6,11 @@ package ua.testwarehouse.shumenko.controller;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import ua.testwarehouse.shumenko.model.dao.IncomingDocumentDAO;
@@ -19,6 +19,7 @@ import ua.testwarehouse.shumenko.model.dao.WarehouseDAO;
 import ua.testwarehouse.shumenko.model.entity.IncomingDocument;
 import ua.testwarehouse.shumenko.model.entity.Shipper;
 import ua.testwarehouse.shumenko.model.entity.Warehouse;
+import ua.testwarehouse.shumenko.validator.IncomingValidator;
 
 /**
  *
@@ -43,7 +44,7 @@ public class ViewShipperPageController extends AbstractController {
     private WarehouseDAO warehouse;
     private ShipperDAO shipper;
     private IncomingDocumentDAO incomingDocument;
-    private Integer rowAmount = 1;
+    private Integer rowAmount = 1;   
 
     public ViewShipperPageController() {
     }

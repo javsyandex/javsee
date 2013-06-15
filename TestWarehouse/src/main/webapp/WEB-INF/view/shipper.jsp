@@ -1,6 +1,4 @@
 
-
-
 <%-- 
     Document   : index
     Created on : 14.04.2013, 16:32:25
@@ -33,12 +31,7 @@
                     dateFormat: "yy-mm-dd"
                 });
             });
-        </script>
-        <style type="text/css">
-            span.error {
-                color: red;
-            }
-        </style>
+        </script>   
     </head>
     <body>
         <div class="container-fluid">
@@ -108,26 +101,25 @@
         <div class="container">
             <div class="well well-large">
                 <div>
-                    <form:form action="addShipperInfo.htm" method="post">
+                    <form action="addShipperInfo.htm" method="post">
                         <div>                            
-                            <strong>Дата:  </strong><form:input type="text" name="date" path="date" id="datepicker" style="width: 85px"/>
+                            <strong>Дата:  </strong><input type="text" name="date" id="datepicker" style="width: 85px"/>
 
                             <strong>Поставщик:  </strong>
-                            <form:select name="shipper" path="shipper" style="width: 125px">
+                            <select name="shipper" style="width: 125px">
                                 <option></option>
                                 <c:forEach items="${shipper}" var="shipper">
-                                    <option><c:out value="${shipper.shipper}"/></option>
-                                    <span class="error"><form:errors path="shipper" /></span>
+                                    <option><c:out value="${shipper.shipper}"/></option>                         
                                 </c:forEach>
-                            </form:select>
+                            </select>
 
                             <strong>Склад:  </strong>
-                            <form:select name="warehouse" path="warehouse" style="width: 125px">
+                            <select name="warehouse" style="width: 125px">
                                 <option></option>
                                 <c:forEach items="${warehouse}" var="warehouse">
                                     <option><c:out value="${warehouse.warehouse}"/></option>
                                 </c:forEach>
-                            </form:select>
+                            </select>
                         </div>
                         <div>
                             <table class="table table-bordered" border="3" width="2" cellspacing="2" cellpadding="2" >
@@ -144,16 +136,16 @@
                                     <c:forEach begin="1" end="${rowAmount}" step="1">
                                         <tr>
                                             <td>
-                                                <form:input path="product${count}" type="text" name="product${count}" />
+                                                <input type="text" name="product${count}" />
                                             </td>
                                             <td>
-                                                <form:input path="amount${count}" type="text" name="amount${count}" />
+                                                <input type="text" name="amount${count}" />
                                             </td>
                                             <td>
-                                                <form:input path="price${count}" type="text" name="price${count}" />
+                                                <input type="text" name="price${count}" />
                                             </td>
                                             <td>
-                                                <form:input path="amountToBePaid${count}" type="text" name="amountToBePaid${count}" />
+                                                <input type="text" name="amountToBePaid${count}" />
                                             </td>
                                         </tr>
                                         <c:set var="count" value="${count + 1}" scope="page"/>
@@ -165,7 +157,7 @@
                         </div>
 
                         <input class="btn btn-success" type="submit" name="" value="Сделать поставку" />
-                    </form:form>
+                    </form>
                 </div>
                 <form action="shipper.htm" method="post">
                     <input class="btn btn-success" type="submit" name="" value="Добавить строку" />
