@@ -76,4 +76,20 @@ public class ExpenseDocumentDAOImpl implements ExpenseDocumentDAO {
         }
         return result;
     }
+    
+    @Override
+    public void saveExpense(ExpenseDocument exdoc) {
+        Session session = WarehouseHibernateUtil.getSessionFactory().openSession();
+        try {
+            session.beginTransaction().begin();
+            session.save(exdoc);
+            session.getTransaction().commit();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+    }
 }

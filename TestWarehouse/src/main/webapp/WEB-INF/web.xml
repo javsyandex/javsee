@@ -15,6 +15,7 @@
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>
+            /WEB-INF/spring-validator.xml
             /WEB-INF/dispatcher-service.xml 
         </param-value>
     </context-param>
@@ -26,6 +27,7 @@
             <url-pattern>/WEB-INF/view/remainder.jsp</url-pattern>
             <url-pattern>/WEB-INF/view/hello.jsp</url-pattern>
             <url-pattern>/WEB-INF/view/incoming.jsp</url-pattern>
+            <url-pattern>/WEB-INF/view/helloRemainder.jsp</url-pattern>
             <url-pattern>/WEB-INF/view/expense.jsp</url-pattern>
             <url-pattern>/WEB-INF/view/error.jsp</url-pattern>
             <url-pattern>/WEB-INF/view/customer.jsp</url-pattern>

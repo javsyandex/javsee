@@ -77,4 +77,20 @@ public class IncomingDocumentDAOImpl implements IncomingDocumentDAO {
         }
         return result;
     }
+
+    @Override
+    public void saveIncoming(IncomingDocument incdoc) {
+        Session session = WarehouseHibernateUtil.getSessionFactory().openSession();
+        try {
+            session.beginTransaction().begin();
+            session.save(incdoc);
+            session.getTransaction().commit();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+    }
 }

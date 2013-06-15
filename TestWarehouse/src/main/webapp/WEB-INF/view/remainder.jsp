@@ -123,7 +123,7 @@
                         <tbody>
                             <c:forEach items="${remainder}" var="remainder">  
                                 <tr>
-                                    <td><c:out value="${remainder.product}"/></td>
+                                    <th><c:out value="${remainder.product}"/></th>
                                     <td>
                                         <c:choose>
                                             <c:when test="${remainder.amountWH1>0}">

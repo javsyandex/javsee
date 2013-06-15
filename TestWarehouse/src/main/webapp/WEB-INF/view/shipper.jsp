@@ -8,6 +8,7 @@
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -33,6 +34,11 @@
                 });
             });
         </script>
+        <style type="text/css">
+            span.error {
+                color: red;
+            }
+        </style>
     </head>
     <body>
         <div class="container-fluid">
@@ -97,4 +103,74 @@
 
 
             </div>
+        </div>
+
+        <div class="container">
+            <div class="well well-large">
+                <div>
+                    <form:form action="addShipperInfo.htm" method="post">
+                        <div>                            
+                            <strong>Дата:  </strong><form:input type="text" name="date" path="date" id="datepicker" style="width: 85px"/>
+
+                            <strong>Поставщик:  </strong>
+                            <form:select name="shipper" path="shipper" style="width: 125px">
+                                <option></option>
+                                <c:forEach items="${shipper}" var="shipper">
+                                    <option><c:out value="${shipper.shipper}"/></option>
+                                    <span class="error"><form:errors path="shipper" /></span>
+                                </c:forEach>
+                            </form:select>
+
+                            <strong>Склад:  </strong>
+                            <form:select name="warehouse" path="warehouse" style="width: 125px">
+                                <option></option>
+                                <c:forEach items="${warehouse}" var="warehouse">
+                                    <option><c:out value="${warehouse.warehouse}"/></option>
+                                </c:forEach>
+                            </form:select>
+                        </div>
+                        <div>
+                            <table class="table table-bordered" border="3" width="2" cellspacing="2" cellpadding="2" >
+                                <thead>
+                                    <tr>
+                                        <th>Товар</th>
+                                        <th>Количество</th>
+                                        <th>Цена за шт.</th>
+                                        <th>Сумма(расчетная)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <c:set var="count" value="1" scope="page" />
+                                    <c:forEach begin="1" end="${rowAmount}" step="1">
+                                        <tr>
+                                            <td>
+                                                <form:input path="product${count}" type="text" name="product${count}" />
+                                            </td>
+                                            <td>
+                                                <form:input path="amount${count}" type="text" name="amount${count}" />
+                                            </td>
+                                            <td>
+                                                <form:input path="price${count}" type="text" name="price${count}" />
+                                            </td>
+                                            <td>
+                                                <form:input path="amountToBePaid${count}" type="text" name="amountToBePaid${count}" />
+                                            </td>
+                                        </tr>
+                                        <c:set var="count" value="${count + 1}" scope="page"/>
+
+                                    </c:forEach>
+                                </tbody>
+                            </table>
+
+                        </div>
+
+                        <input class="btn btn-success" type="submit" name="" value="Сделать поставку" />
+                    </form:form>
+                </div>
+                <form action="shipper.htm" method="post">
+                    <input class="btn btn-success" type="submit" name="" value="Добавить строку" />
+                    <input type="hidden" name="addRow"  value="${rowAmount+1}">
+                    <input type="hidden" name="total"  value="${count}">
+                </form>             
+            </div>    
         </div>

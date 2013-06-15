@@ -17,4 +17,6 @@ public interface ExpenseDocumentDAO {
     public List<ExpenseDocument> getInfoToExpenseDocument(Date fromDeliveryDate,
             Date byDeliveryDate, String customer, String warehouse);
     public List<ExpenseDocument> getInfoToRemainderDocument(Date deliveryDate, String warehouse, String Product);
+    
+    public void saveExpense(ExpenseDocument exdoc);
 }

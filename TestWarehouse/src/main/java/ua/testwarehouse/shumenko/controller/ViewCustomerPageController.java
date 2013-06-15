@@ -4,35 +4,120 @@
  */
 package ua.testwarehouse.shumenko.controller;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
+import ua.testwarehouse.shumenko.model.dao.CustomerDAO;
+import ua.testwarehouse.shumenko.model.dao.ExpenseDocumentDAO;
+import ua.testwarehouse.shumenko.model.dao.WarehouseDAO;
+import ua.testwarehouse.shumenko.model.entity.Customer;
+import ua.testwarehouse.shumenko.model.entity.ExpenseDocument;
+import ua.testwarehouse.shumenko.model.entity.Warehouse;
 
 /**
  *
  * @author miha
  */
 public class ViewCustomerPageController extends AbstractController {
-    
-    private final static  String CUSTOMER_PAGE_VIEW_NAME="customer";
-    
+
+    private final static String CUSTOMER_PAGE_VIEW_NAME = "customer";
+    private static final String WAREHOUSE_MODEL_NAME = "warehouse";
+    private static final String CUSTOMER_MODEL_NAME = "customer";
+    private static final String ROW_AMOUNT_MODEL_NAME = "rowAmount";
+    private static final String PARAMETER_AMOUNT_ROW = "addRow";
+    private static final String PARAMETER_DATE = "date";
+    private static final String PARAMETER_CUSTOMER = "customer";
+    private static final String PARAMETER_WAREHOUSE = "warehouse";
+    private static final String PARAMETER_PRODUCT = "product";
+    private static final String PARAMETER_PRICE = "price";
+    private static final String PARAMETER_AMOUNT = "amount";
+    private static final String PARAMETER_AMOUNT_TO_BE_PAID = "amountToBePaid";
+    private static final String SERVLET_PATH_ADD_EXPENSE = "/addCustomerInfo.htm";
+    private WarehouseDAO warehouse;
+    private CustomerDAO customer;
+    private ExpenseDocumentDAO expenseDocument;
+    private Integer rowAmount = 1;
+
     public ViewCustomerPageController() {
     }
-    
+
     @Override
     protected ModelAndView handleRequestInternal(
             HttpServletRequest request,
             HttpServletResponse response) throws Exception {
         ModelAndView result = null;
-            try{
-                ModelAndView mv=new ModelAndView();
-                mv.setViewName(CUSTOMER_PAGE_VIEW_NAME);
-                result=mv;
-            }catch(Exception e){
-                
+        try {
+            ModelAndView mv = new ModelAndView();
+            mv.setViewName(CUSTOMER_PAGE_VIEW_NAME);
+
+            List<Customer> allCustomer = customer.getAllCustomer();
+            List<Warehouse> allWarehouse = warehouse.getAllWarehouse();
+            mv.addObject(WAREHOUSE_MODEL_NAME, allWarehouse);
+            mv.addObject(CUSTOMER_MODEL_NAME, allCustomer);
+
+            String parameterRow = request.getParameter(PARAMETER_AMOUNT_ROW);
+            if (parameterRow != null) {
+                Integer addRow = Integer.parseInt(parameterRow);
+                if (addRow > rowAmount) {
+                    this.rowAmount = addRow;
+                }
             }
-        
+
+//-------------------------------------------------------------------------------------------------------
+
+            String selectedDate = request.getParameter(PARAMETER_DATE);
+            String selectedCustomer = request.getParameter(PARAMETER_CUSTOMER);
+            String selectedWarehouse = request.getParameter(PARAMETER_WAREHOUSE);
+
+            Date date = null;
+            if (selectedDate != null) {
+                try {
+                    DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                    date = formatter.parse(selectedDate);
+                } catch (Exception e) {
+                }
+            }
+            
+            System.out.println(request.getServletPath());
+
+            if (request.getServletPath().equals(SERVLET_PATH_ADD_EXPENSE)) {
+                try {
+                    for (int i = 1; i <= rowAmount; i++) {
+                        expenseDocument.saveExpense(new ExpenseDocument(date, selectedCustomer, selectedWarehouse,
+                                request.getParameter(PARAMETER_PRODUCT + i),
+                                Integer.parseInt(request.getParameter(PARAMETER_AMOUNT + i)),
+                                Double.parseDouble(request.getParameter(PARAMETER_PRICE + i)),
+                                Double.parseDouble(request.getParameter(PARAMETER_AMOUNT_TO_BE_PAID + i))));
+                    }
+                    this.rowAmount = 1;
+                } catch (Exception ex) {
+                    System.out.println("SQL EXCEPTION");
+                }
+            }
+
+            mv.addObject(ROW_AMOUNT_MODEL_NAME, rowAmount);
+
+            result = mv;
+        } catch (Exception e) {
+        }
+
         return result;
+    }
+
+    public void setWarehouse(WarehouseDAO warehouse) {
+        this.warehouse = warehouse;
+    }
+
+    public void setCustomer(CustomerDAO customer) {
+        this.customer = customer;
+    }
+
+    public void setExpenseDocument(ExpenseDocumentDAO expenseDocument) {
+        this.expenseDocument = expenseDocument;
     }
 }

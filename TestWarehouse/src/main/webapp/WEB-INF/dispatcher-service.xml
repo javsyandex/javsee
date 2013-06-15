@@ -45,9 +45,17 @@
           p:remainder-ref="remainderList"           
     />
     
-    <bean name="viewCustomerPageController" class="ua.testwarehouse.shumenko.controller.ViewCustomerPageController"/>
+    <bean name="viewCustomerPageController" class="ua.testwarehouse.shumenko.controller.ViewCustomerPageController"
+          p:warehouse-ref="warehouse"
+          p:customer-ref="customer"
+          p:expenseDocument-ref="viewExpenseDocument"
+    />
     
-    <bean name="viewShipperPageController" class="ua.testwarehouse.shumenko.controller.ViewShipperPageController"/>
+    <bean name="viewShipperPageController" class="ua.testwarehouse.shumenko.controller.ViewShipperPageController"
+          p:warehouse-ref="warehouse"
+          p:shipper-ref="shipper"
+          p:incomingDocument-ref="viewIncomingDocument"
+    />
     
     <bean name="remainderList" class="service.GetRemainderList"
           p:expenseDocumentDao-ref="viewExpenseDocument"
@@ -64,7 +72,9 @@
                 <prop key="/incoming.htm">viewIncomingDocumentController</prop>
                 <prop key="/expense.htm">viewExpenseDocumentController</prop>
                 <prop key="/customer.htm">viewCustomerPageController</prop>
+                <prop key="/addCustomerInfo.htm">viewCustomerPageController</prop>
                 <prop key="/shipper.htm">viewShipperPageController</prop>
+                <prop key="/addShipperInfo.htm">viewShipperPageController</prop>
                 <prop key="/remainder.htm">viewRemainderPageController</prop>
             </props> 
         </property> 

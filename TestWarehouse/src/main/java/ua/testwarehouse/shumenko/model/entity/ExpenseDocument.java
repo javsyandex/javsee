@@ -18,7 +18,7 @@ import javax.persistence.TableGenerator;
  */
 @Entity
 public class ExpenseDocument implements Serializable{
-
+        
     private Integer id;
     private Date deliveryDate;
     private String customer;
@@ -28,10 +28,24 @@ public class ExpenseDocument implements Serializable{
     private Double notionalPrice;
     private Double notionalAmount;
 
+    public ExpenseDocument() {
+    }
+
+    public ExpenseDocument(Date deliveryDate, String customer, String warehouse,
+            String product, Integer amount, Double notionalPrice, Double notionalAmount) {
+        this.deliveryDate = deliveryDate;
+        this.customer = customer;
+        this.warehouse = warehouse;
+        this.product = product;
+        this.amount = amount;
+        this.notionalPrice = notionalPrice;
+        this.notionalAmount = notionalAmount;
+    }
+
     @Id
-    @TableGenerator(name = "deliveryid", table = "deliverypktb", pkColumnName = "deliverykey",
-            pkColumnValue = "deliveryvalue", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.TABLE, generator = "deliveryid")
+    @TableGenerator(name = "expenseid", table = "expensepktb", pkColumnName = "expensekey",
+            pkColumnValue = "expensevalue", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "expenseid")
     public Integer getId() {
         return id;
     }

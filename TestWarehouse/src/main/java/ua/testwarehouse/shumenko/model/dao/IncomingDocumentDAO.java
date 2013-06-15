@@ -16,4 +16,6 @@ public interface IncomingDocumentDAO {
     public List<IncomingDocument> getInfoToIncomingDocument(Date fromDeliveryDate,
             Date byDeliveryDate,String shipper,String warehouse);
     public List<IncomingDocument> getInfoToRemainderDocument(Date deliveryDate, String warehouse,String product);
+    
+    public void saveIncoming(IncomingDocument incdoc);
 }

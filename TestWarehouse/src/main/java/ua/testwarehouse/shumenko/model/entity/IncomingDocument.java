@@ -23,11 +23,26 @@ public class IncomingDocument implements Serializable{
     private Integer amount;
     private Double price;
     private Double amountToBePaid;
+    
+    public IncomingDocument() {
+    }
+
+    public IncomingDocument(Date deliveryDate, String shipper, String warehouse, 
+            String product, Integer amount, Double price, Double amountToBePaid) {
+        this.deliveryDate = deliveryDate;
+        this.shipper = shipper;
+        this.warehouse = warehouse;
+        this.product = product;
+        this.amount = amount;
+        this.price = price;
+        this.amountToBePaid = amountToBePaid;
+    }
+    
 
     @Id
-    @TableGenerator(name = "deliveryid", table = "deliverypktb", pkColumnName = "deliverykey",
-            pkColumnValue = "deliveryvalue", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.TABLE, generator = "deliveryid")
+    @TableGenerator(name = "incomingid", table = "incomingpktb", pkColumnName = "incomingkey",
+            pkColumnValue = "incomingvalue", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "incomingid")
     public Integer getId() {
         return id;
     }
