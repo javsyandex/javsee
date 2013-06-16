@@ -23,6 +23,7 @@
         <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
         <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
         <link rel="stylesheet" href="/resources/demos/style.css" />
+        <link rel="stylesheet" href="../../css/validation.css" />
         <script>
             $(function() {
                 $("#datepicker").datepicker({
@@ -31,7 +32,7 @@
                     dateFormat: "yy-mm-dd"
                 });
             });
-        </script>   
+        </script>
     </head>
     <body>
         <div class="container-fluid">
@@ -103,10 +104,11 @@
                 <div>
                     <form action="addShipperInfo.htm" method="post">
                         <div>                            
-                            <strong>Дата:  </strong><input type="text" name="date" id="datepicker" style="width: 85px"/>
+                            <strong>Дата:  </strong><input type="text" name="date" id="datepicker" style="width: 85px"
+                                                           placeholder="Дата" required />
 
                             <strong>Поставщик:  </strong>
-                            <select name="shipper" style="width: 125px">
+                            <select name="shipper" style="width: 125px" required >
                                 <option></option>
                                 <c:forEach items="${shipper}" var="shipper">
                                     <option><c:out value="${shipper.shipper}"/></option>                         
@@ -114,7 +116,7 @@
                             </select>
 
                             <strong>Склад:  </strong>
-                            <select name="warehouse" style="width: 125px">
+                            <select name="warehouse" style="width: 125px" required >
                                 <option></option>
                                 <c:forEach items="${warehouse}" var="warehouse">
                                     <option><c:out value="${warehouse.warehouse}"/></option>
@@ -136,16 +138,20 @@
                                     <c:forEach begin="1" end="${rowAmount}" step="1">
                                         <tr>
                                             <td>
-                                                <input type="text" name="product${count}" />
+                                                <label for="product${count}"></label>
+                                                <input type="text" name="product${count}" placeholder="Продукт" required />
                                             </td>
                                             <td>
-                                                <input type="text" name="amount${count}" />
+                                                <label for="amount${count}"></label>
+                                                <input type="text" name="amount${count}" name="msg" placeholder="Кол-во" required pattern="^[ 0-9]+$" />
                                             </td>
                                             <td>
-                                                <input type="text" name="price${count}" />
+                                                <label for="price${count}"></label>
+                                                <input type="text" name="price${count}" name="msg" placeholder="Цена" required pattern="\d+(\.\d{2})?" />
                                             </td>
                                             <td>
-                                                <input type="text" name="amountToBePaid${count}" />
+                                                <label for="amountToBePaid${count}"></label>
+                                                <input type="text" name="amountToBePaid${count}" placeholder="Итог" required pattern="\d+(\.\d{2})?"  />
                                             </td>
                                         </tr>
                                         <c:set var="count" value="${count + 1}" scope="page"/>

@@ -13,4 +13,6 @@ import ua.testwarehouse.shumenko.model.entity.Product;
  */
 public interface ProductDAO {
     public List<Product> getAllProduct();
+    public boolean checkProductAvailability(String product);
+    public void saveProduct(Product product);
 }

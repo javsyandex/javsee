@@ -23,6 +23,7 @@
         <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
         <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
         <link rel="stylesheet" href="/resources/demos/style.css" />
+        <link rel="stylesheet" href="../../css/validation.css" />
         <script>
             $(function() {
                 $("#datepicker").datepicker({
@@ -103,10 +104,11 @@
                 <div>
                     <form action="addCustomerInfo.htm" method="post">
                         <div>
-                            <strong>Дата:  </strong><input type="text" name="date" id="datepicker" style="width: 85px"/>
+                            <strong>Дата:  </strong><input type="text" name="date" id="datepicker" 
+                                                           style="width: 85px" placeholder="Дата" required />
 
                             <strong>Покупатель:  </strong>
-                            <select name="customer" style="width: 125px">
+                            <select name="customer" style="width: 125px" required>
                                 <option></option>
                                 <c:forEach items="${customer}" var="customer">
                                     <option><c:out value="${customer.customer}"/></option>
@@ -114,7 +116,7 @@
                             </select>
 
                             <strong>Склад:  </strong>
-                            <select name="warehouse" style="width: 125px">
+                            <select name="warehouse" style="width: 125px" required>
                                 <option></option>
                                 <c:forEach items="${warehouse}" var="warehouse">
                                     <option><c:out value="${warehouse.warehouse}"/></option>
@@ -136,19 +138,19 @@
                                     <c:forEach begin="1" end="${rowAmount}" step="1">
                                         <tr>
                                             <td>
-                                                <input type="text" name="product${count}" />
+                                                <input type="text" name="product${count}" placeholder="Продукт" required />
                                             </td>
                                             <td>
-                                                <input type="text" name="amount${count}" />
+                                                <input type="text" name="amount${count}" placeholder="Кол-во" required pattern="^[ 0-9]+$" />
                                             </td>
                                             <td>
-                                                <input type="text" name="price${count}" />
+                                                <input type="text" name="price${count}" placeholder="Цена" required pattern="\d+(\.\d{2})?" />
                                             </td>
                                             <td>
-                                                <input type="text" name="amountToBePaid${count}" />
+                                                <input type="text" name="amountToBePaid${count}" placeholder="Итог" required pattern="\d+(\.\d{2})?"/>
                                             </td>
                                         </tr>
-                                        <c:set var="count" value="${count + 1}" scope="page"/>
+                                        <c:set var="count" value="${count + 1}" scope="page"  />
                                         
                                     </c:forEach>
                                 </tbody>
@@ -156,7 +158,7 @@
 
                         </div>
 
-                        <input class="btn btn-success" type="submit" name="" value="Сделать поставку" />
+                        <input class="btn btn-success" type="submit" name="" value="Сделать покупку" />
                     </form>
                 </div>
                 <form action="customer.htm" method="post">

@@ -108,10 +108,11 @@
                 <div>
                     <form action="expense.htm" method="post">
                         <div>
-                            <strong>Дата:  </strong><input type="text" name="date" id="datepicker" style="width: 85px"/>
+                            <strong>Дата:  </strong><input type="text" name="date" id="datepicker" style="width: 85px"
+                                                           placeholder="Дата" required />
 
                             <strong>Покупатель:  </strong>
-                            <select name="customer" style="width: 125px">
+                            <select name="customer" style="width: 125px" required >
                                 <option></option>
                                 <c:forEach items="${customer}" var="customer">
                                     <option><c:out value="${customer.customer}"/></option>
@@ -119,7 +120,7 @@
                             </select>
 
                             <strong>Склад:  </strong>
-                            <select name="warehouse" style="width: 125px">
+                            <select name="warehouse" style="width: 125px" required >
                                 <option></option>
                                 <c:forEach items="${warehouse}" var="warehouse">
                                     <option><c:out value="${warehouse.warehouse}"/></option>

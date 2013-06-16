@@ -55,6 +55,7 @@
           p:warehouse-ref="warehouse"
           p:shipper-ref="shipper"
           p:incomingDocument-ref="viewIncomingDocument"
+          p:product-ref="product"
     />
     
     <bean name="remainderList" class="service.GetRemainderList"

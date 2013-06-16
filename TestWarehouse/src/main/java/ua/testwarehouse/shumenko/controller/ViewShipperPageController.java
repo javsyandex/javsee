@@ -14,9 +14,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import ua.testwarehouse.shumenko.model.dao.IncomingDocumentDAO;
+import ua.testwarehouse.shumenko.model.dao.ProductDAO;
 import ua.testwarehouse.shumenko.model.dao.ShipperDAO;
 import ua.testwarehouse.shumenko.model.dao.WarehouseDAO;
 import ua.testwarehouse.shumenko.model.entity.IncomingDocument;
+import ua.testwarehouse.shumenko.model.entity.Product;
 import ua.testwarehouse.shumenko.model.entity.Shipper;
 import ua.testwarehouse.shumenko.model.entity.Warehouse;
 import ua.testwarehouse.shumenko.validator.IncomingValidator;
@@ -43,6 +45,7 @@ public class ViewShipperPageController extends AbstractController {
     
     private WarehouseDAO warehouse;
     private ShipperDAO shipper;
+    private ProductDAO product;
     private IncomingDocumentDAO incomingDocument;
     private Integer rowAmount = 1;   
 
@@ -96,6 +99,10 @@ public class ViewShipperPageController extends AbstractController {
                                 Integer.parseInt(request.getParameter(PARAMETER_AMOUNT + i)),
                                 Double.parseDouble(request.getParameter(PARAMETER_PRICE + i)),
                                 Double.parseDouble(request.getParameter(PARAMETER_AMOUNT_TO_BE_PAID + i))));
+                        boolean checkProductAvailability = product.checkProductAvailability(request.getParameter(PARAMETER_PRODUCT + i));
+                        if(checkProductAvailability){}else{
+                            product.saveProduct(new Product(request.getParameter(PARAMETER_PRODUCT + i)));
+                        }
                     }
                     this.rowAmount = 1;
                 } catch (Exception ex) {
@@ -122,5 +129,9 @@ public class ViewShipperPageController extends AbstractController {
 
     public void setIncomingDocument(IncomingDocumentDAO incomingDocument) {
         this.incomingDocument = incomingDocument;
+    }
+
+    public void setProduct(ProductDAO product) {
+        this.product = product;
     }
 }

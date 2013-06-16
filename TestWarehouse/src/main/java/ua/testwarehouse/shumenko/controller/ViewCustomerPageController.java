@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import ua.testwarehouse.shumenko.model.dao.CustomerDAO;
 import ua.testwarehouse.shumenko.model.dao.ExpenseDocumentDAO;
+import ua.testwarehouse.shumenko.model.dao.ProductDAO;
 import ua.testwarehouse.shumenko.model.dao.WarehouseDAO;
 import ua.testwarehouse.shumenko.model.entity.Customer;
 import ua.testwarehouse.shumenko.model.entity.ExpenseDocument;
@@ -38,8 +39,10 @@ public class ViewCustomerPageController extends AbstractController {
     private static final String PARAMETER_AMOUNT = "amount";
     private static final String PARAMETER_AMOUNT_TO_BE_PAID = "amountToBePaid";
     private static final String SERVLET_PATH_ADD_EXPENSE = "/addCustomerInfo.htm";
+    
     private WarehouseDAO warehouse;
     private CustomerDAO customer;
+    private ProductDAO product;
     private ExpenseDocumentDAO expenseDocument;
     private Integer rowAmount = 1;
 
@@ -119,5 +122,9 @@ public class ViewCustomerPageController extends AbstractController {
 
     public void setExpenseDocument(ExpenseDocumentDAO expenseDocument) {
         this.expenseDocument = expenseDocument;
+    }
+
+    public void setProduct(ProductDAO product) {
+        this.product = product;
     }
 }

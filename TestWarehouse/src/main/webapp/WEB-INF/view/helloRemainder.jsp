@@ -106,7 +106,8 @@
         <div class="container">
             <div class="well well-large">
                 <form action="remainder.htm" method="post">
-                    <strong>Дата:  </strong><input type="text" name="date" id="datepicker" style="width: 85px"/>
+                    <strong>Дата:  </strong><input type="text" name="date" id="datepicker" style="width: 85px"
+                                                   placeholder="Дата" required/>
                     <div>
                         <input class="btn btn-inverse btn-small" type="submit" value="Просмотреть «Остатки»"/>
                     </div>

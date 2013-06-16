@@ -18,8 +18,17 @@ public class Product implements Serializable {
     private Integer id;
     private String product;
 
+    public Product() {
+    }
+
+    public Product(String product) {
+        this.product = product;
+    }
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @TableGenerator(name = "productid", table = "productpktb", pkColumnName = "productkey",
+            pkColumnValue = "productvalue", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "productid")
     public Integer getId() {
         return id;
     }
