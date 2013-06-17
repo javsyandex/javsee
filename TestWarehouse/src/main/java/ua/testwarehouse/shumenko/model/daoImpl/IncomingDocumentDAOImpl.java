@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import org.hibernate.Criteria;
+import org.hibernate.LockMode;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 import ua.testwarehouse.shumenko.model.dao.IncomingDocumentDAO;
@@ -24,6 +25,7 @@ public class IncomingDocumentDAOImpl implements IncomingDocumentDAO {
     private static final String SHIPPER_COLUMN = "shipper";
     private static final String WAREHOUSE_COLUMN = "warehouse";
     private static final String PRODUCT_COLUMN = "product";
+    private static final String PRICE_COLUMN = "price";
 
     @Override
     public List<IncomingDocument> getInfoToIncomingDocument(Date fromDeliveryDate,
@@ -91,6 +93,45 @@ public class IncomingDocumentDAOImpl implements IncomingDocumentDAO {
             if (session != null) {
                 session.close();
             }
+        }
+    }
+
+    @Override
+    public boolean checkAvailabilityProductInIncoming(Date date, String shipper, String warehouse, 
+    String product, Double price, Double AmountToBePaid, Integer amount) {
+        Session session = WarehouseHibernateUtil.getSessionFactory().openSession();
+        boolean result = false;
+        try {
+            session.beginTransaction().begin();
+            Criteria criteria = session.createCriteria(IncomingDocument.class);
+            Criteria incomingDocument = criteria.add(Restrictions.eq(DELIVERY_DATE_COLUMN, date)).
+                    add(Restrictions.eq(WAREHOUSE_COLUMN, warehouse)).add(Restrictions.eq(SHIPPER_COLUMN, shipper)).
+                    add(Restrictions.eq(PRODUCT_COLUMN, product)).add(Restrictions.eq(PRICE_COLUMN, price));
+            ArrayList<IncomingDocument> list = (ArrayList<IncomingDocument>) incomingDocument.list();
+            if (list.size() > 0) {
+                result = true;
+                IncomingDocument incdoc = (IncomingDocument) criteria.
+                        add(Restrictions.eq(DELIVERY_DATE_COLUMN, date)).
+                        add(Restrictions.eq(WAREHOUSE_COLUMN, warehouse)).add(Restrictions.eq(SHIPPER_COLUMN, shipper)).
+                        add(Restrictions.eq(PRODUCT_COLUMN, product)).add(Restrictions.eq(PRICE_COLUMN, price)).
+                        setLockMode(LockMode.UPGRADE).uniqueResult();
+                updateIncoming(AmountToBePaid, amount, incdoc);
+            }
+
+        } catch (Exception e) {
+        }
+        return result;
+    }
+
+    @Override
+    public void updateIncoming(Double amountToBePaid, Integer amount, IncomingDocument incdoc) {
+        Session session = WarehouseHibernateUtil.getSessionFactory().openSession();
+        try {
+            session.beginTransaction().begin();
+            incdoc.setAmount(incdoc.getAmount()+amount);
+            incdoc.setAmountToBePaid(incdoc.getAmountToBePaid()+amountToBePaid);
+            session.update(incdoc);
+        } catch (Exception e) {
         }
     }
 }

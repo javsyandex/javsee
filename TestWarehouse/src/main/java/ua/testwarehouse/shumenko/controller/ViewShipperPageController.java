@@ -42,12 +42,11 @@ public class ViewShipperPageController extends AbstractController {
     private static final String PARAMETER_AMOUNT = "amount";
     private static final String PARAMETER_AMOUNT_TO_BE_PAID = "amountToBePaid";
     private static final String SERVLET_PATH_ADD_INCOMING = "/addShipperInfo.htm";
-    
     private WarehouseDAO warehouse;
     private ShipperDAO shipper;
     private ProductDAO product;
     private IncomingDocumentDAO incomingDocument;
-    private Integer rowAmount = 1;   
+    private Integer rowAmount = 1;
 
     public ViewShipperPageController() {
     }
@@ -94,13 +93,23 @@ public class ViewShipperPageController extends AbstractController {
             if (request.getServletPath().equals(SERVLET_PATH_ADD_INCOMING)) {
                 try {
                     for (int i = 1; i <= rowAmount; i++) {
-                        incomingDocument.saveIncoming(new IncomingDocument(date, selectedShipper, selectedWarehouse,
+                        if (incomingDocument.checkAvailabilityProductInIncoming(date,
+                                selectedShipper,
+                                selectedWarehouse,
                                 request.getParameter(PARAMETER_PRODUCT + i),
-                                Integer.parseInt(request.getParameter(PARAMETER_AMOUNT + i)),
                                 Double.parseDouble(request.getParameter(PARAMETER_PRICE + i)),
-                                Double.parseDouble(request.getParameter(PARAMETER_AMOUNT_TO_BE_PAID + i))));
+                                Double.parseDouble(request.getParameter(PARAMETER_AMOUNT_TO_BE_PAID + i)),
+                                Integer.parseInt(request.getParameter(PARAMETER_AMOUNT + i)))) {
+                        } else {
+                            incomingDocument.saveIncoming(new IncomingDocument(date, selectedShipper, selectedWarehouse,
+                                    request.getParameter(PARAMETER_PRODUCT + i),
+                                    Integer.parseInt(request.getParameter(PARAMETER_AMOUNT + i)),
+                                    Double.parseDouble(request.getParameter(PARAMETER_PRICE + i)),
+                                    Double.parseDouble(request.getParameter(PARAMETER_AMOUNT_TO_BE_PAID + i))));
+                        }
                         boolean checkProductAvailability = product.checkProductAvailability(request.getParameter(PARAMETER_PRODUCT + i));
-                        if(checkProductAvailability){}else{
+                        if (checkProductAvailability) {
+                        } else {
                             product.saveProduct(new Product(request.getParameter(PARAMETER_PRODUCT + i)));
                         }
                     }
