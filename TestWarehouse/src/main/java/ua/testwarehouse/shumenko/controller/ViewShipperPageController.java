@@ -88,8 +88,6 @@ public class ViewShipperPageController extends AbstractController {
                 }
             }
 
-            System.out.println(request.getServletPath());
-
             if (request.getServletPath().equals(SERVLET_PATH_ADD_INCOMING)) {
                 try {
                     for (int i = 1; i <= rowAmount; i++) {
@@ -118,9 +116,6 @@ public class ViewShipperPageController extends AbstractController {
                     System.out.println("SQL EXCEPTION");
                 }
             }
-
-            System.out.println("row amount " + rowAmount);
-
             mv.addObject(ROW_AMOUNT_MODEL_NAME, rowAmount);
             result = mv;
         } catch (Exception e) {

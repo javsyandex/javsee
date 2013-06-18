@@ -20,5 +20,5 @@ public interface IncomingDocumentDAO {
     public void saveIncoming(IncomingDocument incdoc);
     public boolean checkAvailabilityProductInIncoming(Date date,String shipper,String warehouse,
             String product, Double price, Double AmountToBePaid, Integer amount);
-    public void updateIncoming(Double amountToBePaid, Integer amount, IncomingDocument incdoc);
+    public void updateIncoming(Double amountToBePaid, Integer amount, Integer id);
 }

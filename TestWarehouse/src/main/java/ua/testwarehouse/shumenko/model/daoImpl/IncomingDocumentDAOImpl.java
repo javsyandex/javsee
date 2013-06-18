@@ -97,8 +97,8 @@ public class IncomingDocumentDAOImpl implements IncomingDocumentDAO {
     }
 
     @Override
-    public boolean checkAvailabilityProductInIncoming(Date date, String shipper, String warehouse, 
-    String product, Double price, Double AmountToBePaid, Integer amount) {
+    public boolean checkAvailabilityProductInIncoming(Date date, String shipper, String warehouse,
+            String product, Double price, Double amountToBePaid, Integer amount) {
         Session session = WarehouseHibernateUtil.getSessionFactory().openSession();
         boolean result = false;
         try {
@@ -110,27 +110,28 @@ public class IncomingDocumentDAOImpl implements IncomingDocumentDAO {
             ArrayList<IncomingDocument> list = (ArrayList<IncomingDocument>) incomingDocument.list();
             if (list.size() > 0) {
                 result = true;
-                IncomingDocument incdoc = (IncomingDocument) criteria.
-                        add(Restrictions.eq(DELIVERY_DATE_COLUMN, date)).
-                        add(Restrictions.eq(WAREHOUSE_COLUMN, warehouse)).add(Restrictions.eq(SHIPPER_COLUMN, shipper)).
-                        add(Restrictions.eq(PRODUCT_COLUMN, product)).add(Restrictions.eq(PRICE_COLUMN, price)).
-                        setLockMode(LockMode.UPGRADE).uniqueResult();
-                updateIncoming(AmountToBePaid, amount, incdoc);
-            }
+                for (IncomingDocument incdoc : list) {
+                    Integer id = incdoc.getId();
+                    updateIncoming(amountToBePaid, amount, id);
+                }
 
+            }
+           session.getTransaction().commit(); 
         } catch (Exception e) {
         }
         return result;
     }
 
     @Override
-    public void updateIncoming(Double amountToBePaid, Integer amount, IncomingDocument incdoc) {
+    public void updateIncoming(Double amountToBePaid, Integer amount, Integer id) {
         Session session = WarehouseHibernateUtil.getSessionFactory().openSession();
         try {
             session.beginTransaction().begin();
-            incdoc.setAmount(incdoc.getAmount()+amount);
-            incdoc.setAmountToBePaid(incdoc.getAmountToBePaid()+amountToBePaid);
-            session.update(incdoc);
+            IncomingDocument ic = (IncomingDocument) session.load(IncomingDocument.class, id);
+            ic.setAmount(ic.getAmount() + amount);
+            ic.setAmountToBePaid(amountToBePaid + ic.getAmountToBePaid());
+            session.flush();  
+            session.getTransaction().commit();
         } catch (Exception e) {
         }
     }
