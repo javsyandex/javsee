@@ -21,16 +21,45 @@
     </context-param>
     <jsp-config>
         <jsp-property-group>
-            <description>header and footer</description>
-            <url-pattern>/WEB-INF/view/shipper.jsp</url-pattern>
+            <description>footer</description>
             <url-pattern>/index.jsp</url-pattern>
-            <url-pattern>/WEB-INF/view/remainder.jsp</url-pattern>
             <url-pattern>/WEB-INF/view/hello.jsp</url-pattern>
-            <url-pattern>/WEB-INF/view/incoming.jsp</url-pattern>
-            <url-pattern>/WEB-INF/view/helloRemainder.jsp</url-pattern>
-            <url-pattern>/WEB-INF/view/expense.jsp</url-pattern>
-            <url-pattern>/WEB-INF/view/error.jsp</url-pattern>
+            <include-coda>/WEB-INF/jspf/footer.jspf</include-coda>
+        </jsp-property-group>
+        <jsp-property-group>
+            <description>header Customer</description>
+            <url-pattern>/WEB-INF/view/customerError.jsp</url-pattern>
+            <url-pattern>/WEB-INF/view/customerSuccess.jsp</url-pattern>
             <url-pattern>/WEB-INF/view/customer.jsp</url-pattern>
+            <include-prelude>/WEB-INF/jspf/customerHeader.jspf</include-prelude>
+            <include-coda>/WEB-INF/jspf/footer.jspf</include-coda>
+        </jsp-property-group>
+        <jsp-property-group>
+            <description>header Shipper</description>
+            <url-pattern>/WEB-INF/view/shipper.jsp</url-pattern>
+            <url-pattern>/WEB-INF/view/shipperSuccess.jsp</url-pattern>
+            <include-prelude>/WEB-INF/jspf/shipperHeader.jspf</include-prelude>
+            <include-coda>/WEB-INF/jspf/footer.jspf</include-coda>
+        </jsp-property-group>
+        <jsp-property-group>
+            <description>header Incoming</description>
+            <url-pattern>/WEB-INF/view/incomingError.jsp</url-pattern>
+            <url-pattern>/WEB-INF/view/incoming.jsp</url-pattern>
+            <include-prelude>/WEB-INF/jspf/incomingHeader.jspf</include-prelude>
+            <include-coda>/WEB-INF/jspf/footer.jspf</include-coda>
+        </jsp-property-group>
+        <jsp-property-group>
+            <description>header Expense</description>
+            <url-pattern>/WEB-INF/view/expenseError.jsp</url-pattern>
+            <url-pattern>/WEB-INF/view/expense.jsp</url-pattern>
+            <include-prelude>/WEB-INF/jspf/expenseHeader.jspf</include-prelude>
+            <include-coda>/WEB-INF/jspf/footer.jspf</include-coda>
+        </jsp-property-group>
+        <jsp-property-group>
+            <description>header Remainder</description>
+            <url-pattern>/WEB-INF/view/remainder.jsp</url-pattern>
+            <url-pattern>/WEB-INF/view/helloRemainder.jsp</url-pattern>
+            <include-prelude>/WEB-INF/jspf/remainderHeader.jspf</include-prelude>
             <include-coda>/WEB-INF/jspf/footer.jspf</include-coda>
         </jsp-property-group>
     </jsp-config>
