@@ -24,6 +24,7 @@ public class ExpenseDocumentDAOImpl implements ExpenseDocumentDAO {
     private static final String CUSTOMER_COLUMN = "customer";
     private static final String WAREHOUSE_COLUMN = "warehouse";
     private static final String PRODUCT_COLUMN = "product";
+    private static final String PRICE_COLUMN = "price";
 
     @Override
     public List<ExpenseDocument> getInfoToExpenseDocument(Date fromDeliveryDate, Date byDeliveryDate,
@@ -37,17 +38,17 @@ public class ExpenseDocumentDAOImpl implements ExpenseDocumentDAO {
 
             if (!customer.equals("")) {
                 expenseDocument = criteria.add(Restrictions.eq(CUSTOMER_COLUMN, customer));
-            } 
+            }
 
             if (!warehouse.equals("")) {
-                 expenseDocument = criteria.add(Restrictions.eq(WAREHOUSE_COLUMN, warehouse));
-            } 
+                expenseDocument = criteria.add(Restrictions.eq(WAREHOUSE_COLUMN, warehouse));
+            }
             if (fromDeliveryDate != null) {
                 expenseDocument = criteria.add(Restrictions.between(DELIVERY_DATE_COLUMN,
                         fromDeliveryDate, byDeliveryDate));
             }
-           
-            result = (ArrayList<ExpenseDocument>)expenseDocument.list();
+
+            result = (ArrayList<ExpenseDocument>) expenseDocument.list();
         } catch (Exception e) {
         } finally {
             if (session != null) {
@@ -76,7 +77,7 @@ public class ExpenseDocumentDAOImpl implements ExpenseDocumentDAO {
         }
         return result;
     }
-    
+
     @Override
     public void saveExpense(ExpenseDocument exdoc) {
         Session session = WarehouseHibernateUtil.getSessionFactory().openSession();
@@ -90,6 +91,46 @@ public class ExpenseDocumentDAOImpl implements ExpenseDocumentDAO {
             if (session != null) {
                 session.close();
             }
+        }
+    }
+
+    @Override
+    public boolean checkAvailabilityProductInExpense(Date date, String customer, String warehouse, String product, 
+    Double price, Double amountToBePaid, Integer amount) {
+        Session session = WarehouseHibernateUtil.getSessionFactory().openSession();
+        boolean result = false;
+        try {
+            session.beginTransaction().begin();
+            Criteria criteria = session.createCriteria(ExpenseDocument.class);
+            Criteria expenseDocument = criteria.add(Restrictions.eq(DELIVERY_DATE_COLUMN, date)).
+                    add(Restrictions.eq(WAREHOUSE_COLUMN, warehouse)).add(Restrictions.eq(CUSTOMER_COLUMN, customer)).
+                    add(Restrictions.eq(PRODUCT_COLUMN, product)).add(Restrictions.eq(PRICE_COLUMN, price));
+            ArrayList<ExpenseDocument> list = (ArrayList<ExpenseDocument>) expenseDocument.list();
+            if (list.size() > 0) {
+                result = true;
+                for (ExpenseDocument exdoc : list) {
+                    Integer id = exdoc.getId();
+                    updateExpense(amountToBePaid, amount, id);
+                }
+
+            }
+            session.getTransaction().commit();
+        } catch (Exception e) {
+        }
+        return result;
+    }
+
+    @Override
+    public void updateExpense(Double amountToBePaid, Integer amount, Integer id) {
+         Session session = WarehouseHibernateUtil.getSessionFactory().openSession();
+        try {
+            session.beginTransaction().begin();
+            ExpenseDocument ex = (ExpenseDocument) session.load(ExpenseDocument.class, id);
+            ex.setAmount(ex.getAmount() + amount);
+            ex.setNotionalAmount(amountToBePaid + ex.getNotionalAmount());
+            session.flush();  
+            session.getTransaction().commit();
+        } catch (Exception e) {
         }
     }
 }

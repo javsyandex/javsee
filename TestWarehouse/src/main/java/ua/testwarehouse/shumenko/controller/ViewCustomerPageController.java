@@ -6,6 +6,7 @@ package ua.testwarehouse.shumenko.controller;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
@@ -14,10 +15,12 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import ua.testwarehouse.shumenko.model.dao.CustomerDAO;
 import ua.testwarehouse.shumenko.model.dao.ExpenseDocumentDAO;
+import ua.testwarehouse.shumenko.model.dao.IncomingDocumentDAO;
 import ua.testwarehouse.shumenko.model.dao.ProductDAO;
 import ua.testwarehouse.shumenko.model.dao.WarehouseDAO;
 import ua.testwarehouse.shumenko.model.entity.Customer;
 import ua.testwarehouse.shumenko.model.entity.ExpenseDocument;
+import ua.testwarehouse.shumenko.model.entity.Product;
 import ua.testwarehouse.shumenko.model.entity.Warehouse;
 
 /**
@@ -39,11 +42,14 @@ public class ViewCustomerPageController extends AbstractController {
     private static final String PARAMETER_AMOUNT = "amount";
     private static final String PARAMETER_AMOUNT_TO_BE_PAID = "amountToBePaid";
     private static final String SERVLET_PATH_ADD_EXPENSE = "/addCustomerInfo.htm";
-    
+    private static final String ERR_MSG_NOT_AVAILALE_PRODUCT = "productError";
+    private static final String ERR_MSG_WAREHOUSE = "warehouseError";
+    private static final String ERR_MSG_DATE = "dateError";
     private WarehouseDAO warehouse;
     private CustomerDAO customer;
     private ProductDAO product;
     private ExpenseDocumentDAO expenseDocument;
+    private IncomingDocumentDAO incomingDocument;
     private Integer rowAmount = 1;
 
     public ViewCustomerPageController() {
@@ -85,17 +91,41 @@ public class ViewCustomerPageController extends AbstractController {
                 } catch (Exception e) {
                 }
             }
-            
+
             System.out.println(request.getServletPath());
 
             if (request.getServletPath().equals(SERVLET_PATH_ADD_EXPENSE)) {
                 try {
                     for (int i = 1; i <= rowAmount; i++) {
-                        expenseDocument.saveExpense(new ExpenseDocument(date, selectedCustomer, selectedWarehouse,
-                                request.getParameter(PARAMETER_PRODUCT + i),
-                                Integer.parseInt(request.getParameter(PARAMETER_AMOUNT + i)),
-                                Double.parseDouble(request.getParameter(PARAMETER_PRICE + i)),
-                                Double.parseDouble(request.getParameter(PARAMETER_AMOUNT_TO_BE_PAID + i))));
+                        boolean checkProductAvailability = incomingDocument.checkAvailabilityProductInIncomingFromAllShipper(date, 
+                                selectedWarehouse,
+                                request.getParameter(PARAMETER_PRODUCT + i), 
+                                Double.parseDouble(request.getParameter(PARAMETER_PRICE + i)));
+                        if (checkProductAvailability) {
+                            if (expenseDocument.checkAvailabilityProductInExpense(date,
+                                    selectedCustomer,
+                                    selectedWarehouse,
+                                    request.getParameter(PARAMETER_PRODUCT + i),
+                                    Double.parseDouble(request.getParameter(PARAMETER_PRICE + i)),
+                                    Double.parseDouble(request.getParameter(PARAMETER_AMOUNT_TO_BE_PAID + i)),
+                                    Integer.parseInt(request.getParameter(PARAMETER_AMOUNT + i)))) {
+                            } else {
+                                expenseDocument.saveExpense(new ExpenseDocument(date, selectedCustomer, selectedWarehouse,
+                                        request.getParameter(PARAMETER_PRODUCT + i),
+                                        Integer.parseInt(request.getParameter(PARAMETER_AMOUNT + i)),
+                                        Double.parseDouble(request.getParameter(PARAMETER_PRICE + i)),
+                                        Double.parseDouble(request.getParameter(PARAMETER_AMOUNT_TO_BE_PAID + i))));
+                            }
+                        } else {
+                            List<String> dateErr = new ArrayList<String>();
+                            List<String> prodErr = new ArrayList<String>();
+                            List<String> whErr = new ArrayList<String>();
+                            prodErr.add(request.getParameter(PARAMETER_PRODUCT + i));
+                            mv.addObject(ERR_MSG_NOT_AVAILALE_PRODUCT, prodErr);
+                            mv.addObject(ERR_MSG_WAREHOUSE,selectedWarehouse);
+                            mv.addObject(ERR_MSG_DATE,selectedDate);
+                        }
+
                     }
                     this.rowAmount = 1;
                 } catch (Exception ex) {
@@ -126,5 +156,9 @@ public class ViewCustomerPageController extends AbstractController {
 
     public void setProduct(ProductDAO product) {
         this.product = product;
+    }
+
+    public void setIncomingDocument(IncomingDocumentDAO incomingDocument) {
+        this.incomingDocument = incomingDocument;
     }
 }

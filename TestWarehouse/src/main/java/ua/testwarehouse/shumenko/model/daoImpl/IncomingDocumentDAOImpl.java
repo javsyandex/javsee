@@ -97,7 +97,7 @@ public class IncomingDocumentDAOImpl implements IncomingDocumentDAO {
     }
 
     @Override
-    public boolean checkAvailabilityProductInIncoming(Date date, String shipper, String warehouse,
+    public boolean checkAvailabilityProductInIncomingForSelectedShipper(Date date, String shipper, String warehouse,
             String product, Double price, Double amountToBePaid, Integer amount) {
         Session session = WarehouseHibernateUtil.getSessionFactory().openSession();
         boolean result = false;
@@ -134,5 +134,25 @@ public class IncomingDocumentDAOImpl implements IncomingDocumentDAO {
             session.getTransaction().commit();
         } catch (Exception e) {
         }
+    }
+
+    @Override
+    public boolean checkAvailabilityProductInIncomingFromAllShipper(Date date, String warehouse, String product, Double price) {
+        Session session = WarehouseHibernateUtil.getSessionFactory().openSession();
+        boolean result = false;
+        try {
+            session.beginTransaction().begin();
+            Criteria criteria = session.createCriteria(IncomingDocument.class);
+            Criteria incomingDocument = criteria.add(Restrictions.eq(DELIVERY_DATE_COLUMN, date)).
+                    add(Restrictions.eq(WAREHOUSE_COLUMN, warehouse)).add(Restrictions.eq(PRODUCT_COLUMN, product)).
+                    add(Restrictions.eq(PRICE_COLUMN, price));
+            ArrayList<IncomingDocument> list = (ArrayList<IncomingDocument>) incomingDocument.list();
+            if (list.size() > 0) {
+                result = true;
+            }
+           session.getTransaction().commit(); 
+        } catch (Exception e) {
+        }
+        return result;
     }
 }

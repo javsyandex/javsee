@@ -10,7 +10,6 @@ import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import ua.testwarehouse.shumenko.model.dao.IncomingDocumentDAO;
@@ -42,6 +41,7 @@ public class ViewShipperPageController extends AbstractController {
     private static final String PARAMETER_AMOUNT = "amount";
     private static final String PARAMETER_AMOUNT_TO_BE_PAID = "amountToBePaid";
     private static final String SERVLET_PATH_ADD_INCOMING = "/addShipperInfo.htm";
+    
     private WarehouseDAO warehouse;
     private ShipperDAO shipper;
     private ProductDAO product;
@@ -91,7 +91,7 @@ public class ViewShipperPageController extends AbstractController {
             if (request.getServletPath().equals(SERVLET_PATH_ADD_INCOMING)) {
                 try {
                     for (int i = 1; i <= rowAmount; i++) {
-                        if (incomingDocument.checkAvailabilityProductInIncoming(date,
+                        if (incomingDocument.checkAvailabilityProductInIncomingForSelectedShipper(date,
                                 selectedShipper,
                                 selectedWarehouse,
                                 request.getParameter(PARAMETER_PRODUCT + i),
