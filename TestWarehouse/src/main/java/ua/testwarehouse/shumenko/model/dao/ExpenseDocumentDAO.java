@@ -21,7 +21,7 @@ public interface ExpenseDocumentDAO {
 
     public void saveExpense(ExpenseDocument exdoc);
 
-    public boolean checkAvailabilityProductInExpense(Date date, String shipper, String warehouse,
+    public boolean checkAvailabilityProductInExpenseAndUpdate(Date date, String shipper, String warehouse,
             String product, Double price, Double AmountToBePaid, Integer amount);
 
     public void updateExpense(Double amountToBePaid, Integer amount, Integer id);

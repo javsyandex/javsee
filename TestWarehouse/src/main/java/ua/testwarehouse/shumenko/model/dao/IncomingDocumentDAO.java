@@ -18,7 +18,7 @@ public interface IncomingDocumentDAO {
     public List<IncomingDocument> getInfoToRemainderDocument(Date deliveryDate, String warehouse,String product);
     
     public void saveIncoming(IncomingDocument incdoc);
-    public boolean checkAvailabilityProductInIncomingForSelectedShipper(Date date,String shipper,String warehouse,
+    public boolean checkAvailabilityProductInIncomingForSelectedShipperAndUpdate(Date date,String shipper,String warehouse,
             String product, Double price, Double amountToBePaid, Integer amount);
     public void updateIncoming(Double amountToBePaid, Integer amount, Integer id);
     

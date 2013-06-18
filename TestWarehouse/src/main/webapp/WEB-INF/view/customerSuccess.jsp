@@ -1,10 +1,12 @@
-<%-- 
-    Document   : remainder
-    Created on : 09.06.2013, 16:23:21
-    Author     : miha
---%>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+
+
+<%-- 
+    Document   : customer
+    Created on : 14.04.2013, 16:32:25
+    Author     : Mihael Shumenko
+--%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -21,6 +23,7 @@
         <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
         <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
         <link rel="stylesheet" href="/resources/demos/style.css" />
+        <link rel="stylesheet" href="../../css/validation.css" />
         <script>
             $(function() {
                 $("#datepicker").datepicker({
@@ -44,7 +47,7 @@
                                         <li class="">
                                             <a href="helloPage.htm">Главная</a>
                                         </li>
-                                        <li class="dropdown active">
+                                        <li class="dropdown">
                                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">Учет<strong class="caret"></strong></a>
                                             <ul class="dropdown-menu">
                                                 <li class="nav-header">
@@ -74,7 +77,7 @@
                                         <li class="">
                                             <a href="shipper.htm">Поставщикам</a>
                                         </li>
-                                        <li class="">
+                                        <li class="active">
                                             <a href="customer.htm">Покупателям</a>
                                         </li>
                                     </ul>
@@ -97,94 +100,76 @@
         </div>
 
         <div class="container">
-            <div class="well well-large">
-                <h4 class="help-block" >Документ «Остатки»</h4>
-            </div>
-        </div>
 
-        <div class="container">
+            <div class="badge-success well well-small">
+                <span class="label label-success"><h4>Покупка совершена успешно!</h4></span>
+            </div> 
+
             <div class="well well-large">
-                <form action="remainder.htm" method="post">
-                    <strong>Дата:  </strong><input type="text" name="date" id="datepicker" style="width: 85px"
-                                                   placeholder="Дата" required />
-                    <div>
-                        <input class="btn btn-inverse btn-small" type="submit" value="Просмотреть «Остатки»"/>
-                    </div>
-                </form>  
                 <div>
-                    <table class="table table-bordered" border="2">
-                        <thead>
-                            <tr>
-                                <th></th>
-                                    <c:forEach items="${warehouse}" var="warehouse">
-                                    <th><c:out value="${warehouse.warehouse}"/></th>
-                                    </c:forEach>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <c:forEach items="${remainder}" var="remainder">  
-                                <tr>
-                                    <th><c:out value="${remainder.product}"/></th>
-                                    <td>
-                                        <c:choose>
-                                            <c:when test="${remainder.amountWH1>0}">
-                                                <c:out value="${remainder.priceWH1}"/> грн.<br>
-                                                <c:out value="${remainder.amountWH1}"/> шт.
-                                            </c:when>
-                                            <c:otherwise>
-                                                --
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </td>
-                                    <td>
-                                        <c:choose>
-                                            <c:when test="${remainder.amountWH2>0}">
-                                                <c:out value="${remainder.priceWH2}"/> грн.<br>
-                                                <c:out value="${remainder.amountWH2}"/> шт.
-                                            </c:when>
-                                            <c:otherwise>
-                                                --
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </td>
-                                    <td>
-                                        <c:choose>
-                                            <c:when test="${remainder.amountWH3>0}">
-                                                <c:out value="${remainder.priceWH3}"/> грн.<br>
-                                                <c:out value="${remainder.amountWH3}"/> шт.
-                                            </c:when>
-                                            <c:otherwise>
-                                                --
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </td>
-                                    <td>
-                                        <c:choose>
-                                            <c:when test="${remainder.amountWH4>0}">
-                                                <c:out value="${remainder.priceWH4}"/> грн.<br>
-                                                <c:out value="${remainder.amountWH4}"/> шт.
-                                            </c:when>
-                                            <c:otherwise>
-                                                --
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </td>
-                                    <td>
-                                        <c:choose>
-                                            <c:when test="${remainder.amountWH5>0}">
-                                                <c:out value="${remainder.priceWH5}"/> грн.<br>
-                                                <c:out value="${remainder.amountWH5}"/> шт.
-                                            </c:when>
-                                            <c:otherwise>
-                                                --
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </td>
-                                </tr>
-                            </c:forEach>
-                        </tbody>
-                    </table>
+                    <form action="addCustomerInfo.htm" method="post">
+                        <div>
+                            <strong>Дата:  </strong><input type="text" name="date" id="datepicker" 
+                                                           style="width: 85px" placeholder="Дата" required />
 
+                            <strong>Покупатель:  </strong>
+                            <select name="customer" style="width: 125px" required>
+                                <option></option>
+                                <c:forEach items="${customer}" var="customer">
+                                    <option><c:out value="${customer.customer}"/></option>
+                                </c:forEach>
+                            </select>
+
+                            <strong>Склад:  </strong>
+                            <select name="warehouse" style="width: 125px" required>
+                                <option></option>
+                                <c:forEach items="${warehouse}" var="warehouse">
+                                    <option><c:out value="${warehouse.warehouse}"/></option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                        <div>
+                            <table class="table table-bordered" border="3" width="2" cellspacing="2" cellpadding="2" >
+                                <thead>
+                                    <tr>
+                                        <th>Товар</th>
+                                        <th>Количество</th>
+                                        <th>Цена за шт.</th>
+                                        <th>Сумма(расчетная)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <c:set var="count" value="1" scope="page" />
+                                    <c:forEach begin="1" end="${rowAmount}" step="1">
+                                        <tr>
+                                            <td>
+                                                <input type="text" name="product${count}" placeholder="Продукт" required />
+                                            </td>
+                                            <td>
+                                                <input type="text" name="amount${count}" placeholder="Кол-во" required pattern="^[ 0-9]+$" />
+                                            </td>
+                                            <td>
+                                                <input type="text" name="price${count}" placeholder="Цена" required pattern="\d+(\.\d{2})?" />
+                                            </td>
+                                            <td>
+                                                <input type="text" name="amountToBePaid${count}" placeholder="Итог" required pattern="\d+(\.\d{2})?"/>
+                                            </td>
+                                        </tr>
+                                        <c:set var="count" value="${count + 1}" scope="page"  />
+
+                                    </c:forEach>
+                                </tbody>
+                            </table>
+
+                        </div>
+
+                        <input class="btn btn-success" type="submit" name="" value="Сделать покупку" />
+                    </form>
                 </div>
-            </div>
+                <form action="customer.htm" method="post">
+                    <input class="btn btn-success" type="submit" name="" value="Добавить строку" />
+                    <input type="hidden" name="addRow"  value="${rowAmount+1}">
+                    <input type="hidden" name="total"  value="${count}">
+                </form>             
+            </div>    
         </div>

@@ -97,7 +97,7 @@ public class IncomingDocumentDAOImpl implements IncomingDocumentDAO {
     }
 
     @Override
-    public boolean checkAvailabilityProductInIncomingForSelectedShipper(Date date, String shipper, String warehouse,
+    public boolean checkAvailabilityProductInIncomingForSelectedShipperAndUpdate(Date date, String shipper, String warehouse,
             String product, Double price, Double amountToBePaid, Integer amount) {
         Session session = WarehouseHibernateUtil.getSessionFactory().openSession();
         boolean result = false;

@@ -49,6 +49,7 @@
           p:warehouse-ref="warehouse"
           p:customer-ref="customer"
           p:expenseDocument-ref="viewExpenseDocument"
+          p:incomingDocument-ref="viewIncomingDocument"
     />
     
     <bean name="viewShipperPageController" class="ua.testwarehouse.shumenko.controller.ViewShipperPageController"

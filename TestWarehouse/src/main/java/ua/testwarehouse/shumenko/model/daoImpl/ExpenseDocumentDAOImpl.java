@@ -24,7 +24,7 @@ public class ExpenseDocumentDAOImpl implements ExpenseDocumentDAO {
     private static final String CUSTOMER_COLUMN = "customer";
     private static final String WAREHOUSE_COLUMN = "warehouse";
     private static final String PRODUCT_COLUMN = "product";
-    private static final String PRICE_COLUMN = "price";
+    private static final String PRICE_COLUMN = "notionalPrice";
 
     @Override
     public List<ExpenseDocument> getInfoToExpenseDocument(Date fromDeliveryDate, Date byDeliveryDate,
@@ -49,6 +49,7 @@ public class ExpenseDocumentDAOImpl implements ExpenseDocumentDAO {
             }
 
             result = (ArrayList<ExpenseDocument>) expenseDocument.list();
+            session.getTransaction().commit();
         } catch (Exception e) {
         } finally {
             if (session != null) {
@@ -68,7 +69,7 @@ public class ExpenseDocumentDAOImpl implements ExpenseDocumentDAO {
             Criteria remainderDocument = criteria.add(Restrictions.eq(DELIVERY_DATE_COLUMN, deliveryDate)).
                     add(Restrictions.eq(WAREHOUSE_COLUMN, warehouse)).add(Restrictions.eq(PRODUCT_COLUMN, product));
             result = (ArrayList<ExpenseDocument>) remainderDocument.list();
-
+            session.getTransaction().commit();
         } catch (Exception e) {
         } finally {
             if (session != null) {
@@ -95,7 +96,7 @@ public class ExpenseDocumentDAOImpl implements ExpenseDocumentDAO {
     }
 
     @Override
-    public boolean checkAvailabilityProductInExpense(Date date, String customer, String warehouse, String product, 
+    public boolean checkAvailabilityProductInExpenseAndUpdate(Date date, String customer, String warehouse, String product, 
     Double price, Double amountToBePaid, Integer amount) {
         Session session = WarehouseHibernateUtil.getSessionFactory().openSession();
         boolean result = false;
@@ -112,7 +113,6 @@ public class ExpenseDocumentDAOImpl implements ExpenseDocumentDAO {
                     Integer id = exdoc.getId();
                     updateExpense(amountToBePaid, amount, id);
                 }
-
             }
             session.getTransaction().commit();
         } catch (Exception e) {

@@ -25,7 +25,7 @@ import ua.testwarehouse.shumenko.model.entity.Warehouse;
  */
 public class ViewExpenseDocumentController extends AbstractController {
 
-    private static final String ERROR_VIEW_NAME = "error";
+    private static final String EXPENSE_ERROR_VIEW_NAME = "expenseError";
     private static final String EXPENSE_DOCUMENT_VIEW_NAME = "expense";
     private static final String WAREHOUSE_MODEL_NAME = "warehouse";
     private static final String CUSTOMER_MODEL_NAME = "customer";
@@ -33,6 +33,9 @@ public class ViewExpenseDocumentController extends AbstractController {
     private static final String PARAMETER_DATE = "date";
     private static final String PARAMETER_CUSTOMER = "customer";
     private static final String PARAMETER_WAREHOUSE = "warehouse";
+    private static final String SELECTED_WAREHOUSE_MODEL_NAME = "selectedWarehouse";
+    private static final String SELECTED_CUSTOMER_MODEL_NAME = "selectedCustomer";
+    private static final String SELECTED_DATE_MODEL_NAME = "selectedDate";
     private CustomerDAO customer;
     private WarehouseDAO warehouse;
     private ExpenseDocumentDAO expenseDocument;
@@ -64,15 +67,23 @@ public class ViewExpenseDocumentController extends AbstractController {
                     date1 = formatter.parse(selectedDate);
                     date2 = formatter.parse(selectedDate);
                 } catch (Exception e) {
-
                 }
             }
             List<ExpenseDocument> infoToExpenseDocument = expenseDocument.getInfoToExpenseDocument(date2, date2,
                     selectedCustomer, selectedWarehouse);
+
             mv.addObject(EXPENSE_MODEL_NAME, infoToExpenseDocument);
             result = mv;
+
+            if (infoToExpenseDocument.size() > 0) {
+            } else {
+                mv.setViewName(EXPENSE_ERROR_VIEW_NAME);
+                mv.addObject(SELECTED_DATE_MODEL_NAME, selectedDate);
+                mv.addObject(SELECTED_CUSTOMER_MODEL_NAME, selectedCustomer);
+                mv.addObject(SELECTED_WAREHOUSE_MODEL_NAME, selectedWarehouse);
+            }
+
         } catch (Exception ex) {
-            
         }
         return result;
     }

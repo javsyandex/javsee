@@ -29,6 +29,7 @@ import ua.testwarehouse.shumenko.validator.IncomingValidator;
 public class ViewShipperPageController extends AbstractController {
 
     private static final String SHIPPER_PAGE_VIEW_NAME = "shipper";
+    private static final String SHIPPER_SUCCESS_PAGE_VIEW_NAME = "shipperSuccess";
     private static final String WAREHOUSE_MODEL_NAME = "warehouse";
     private static final String SHIPPER_MODEL_NAME = "shipper";
     private static final String ROW_AMOUNT_MODEL_NAME = "rowAmount";
@@ -41,7 +42,6 @@ public class ViewShipperPageController extends AbstractController {
     private static final String PARAMETER_AMOUNT = "amount";
     private static final String PARAMETER_AMOUNT_TO_BE_PAID = "amountToBePaid";
     private static final String SERVLET_PATH_ADD_INCOMING = "/addShipperInfo.htm";
-    
     private WarehouseDAO warehouse;
     private ShipperDAO shipper;
     private ProductDAO product;
@@ -91,19 +91,21 @@ public class ViewShipperPageController extends AbstractController {
             if (request.getServletPath().equals(SERVLET_PATH_ADD_INCOMING)) {
                 try {
                     for (int i = 1; i <= rowAmount; i++) {
-                        if (incomingDocument.checkAvailabilityProductInIncomingForSelectedShipper(date,
+                        if (incomingDocument.checkAvailabilityProductInIncomingForSelectedShipperAndUpdate(date,
                                 selectedShipper,
                                 selectedWarehouse,
                                 request.getParameter(PARAMETER_PRODUCT + i),
                                 Double.parseDouble(request.getParameter(PARAMETER_PRICE + i)),
                                 Double.parseDouble(request.getParameter(PARAMETER_AMOUNT_TO_BE_PAID + i)),
                                 Integer.parseInt(request.getParameter(PARAMETER_AMOUNT + i)))) {
+                            mv.setViewName(SHIPPER_SUCCESS_PAGE_VIEW_NAME);
                         } else {
                             incomingDocument.saveIncoming(new IncomingDocument(date, selectedShipper, selectedWarehouse,
                                     request.getParameter(PARAMETER_PRODUCT + i),
                                     Integer.parseInt(request.getParameter(PARAMETER_AMOUNT + i)),
                                     Double.parseDouble(request.getParameter(PARAMETER_PRICE + i)),
                                     Double.parseDouble(request.getParameter(PARAMETER_AMOUNT_TO_BE_PAID + i))));
+                            mv.setViewName(SHIPPER_SUCCESS_PAGE_VIEW_NAME);
                         }
                         boolean checkProductAvailability = product.checkProductAvailability(request.getParameter(PARAMETER_PRODUCT + i));
                         if (checkProductAvailability) {

@@ -25,14 +25,17 @@ import ua.testwarehouse.shumenko.model.entity.Warehouse;
  */
 public class ViewIncomingDocumentController extends AbstractController {
 
-    private static final String ERROR_VIEW_NAME = "error";
-    private static final String WAREHOUSE_MODEL_NAME = "warehouse";
-    private static final String SHIPPER_MODEL_NAME = "shipper";
+    private static final String INCOMING_ERROR_VIEW_NAME = "incomingError";
+    private static final String LIST_WAREHOUSE_MODEL_NAME = "warehouse";
+    private static final String LIST_SHIPPER_MODEL_NAME = "shipper";
     private static final String INCOMING_MODEL_NAME = "incoming";
     private static final String INCOMING_DOCUMENT_VIEW_NAME = "incoming";
     private static final String PARAMETER_DATE = "date";
     private static final String PARAMETER_SHIPPER = "shipper";
     private static final String PARAMETER_WAREHOUSE = "warehouse";
+    private static final String SELECTED_WAREHOUSE_MODEL_NAME = "selectedWarehouse";
+    private static final String SELECTED_SHIPPER_MODEL_NAME = "selectedShipper";
+    private static final String SELECTED_DATE_MODEL_NAME = "selectedDate";
     private ShipperDAO shipper;
     private WarehouseDAO warehouse;
     private IncomingDocumentDAO incomingDocument;
@@ -49,8 +52,8 @@ public class ViewIncomingDocumentController extends AbstractController {
             ModelAndView mv = new ModelAndView(INCOMING_DOCUMENT_VIEW_NAME);
             List<Shipper> allShipper = shipper.getAllShipper();
             List<Warehouse> allWarehouse = warehouse.getAllWarehouse();
-            mv.addObject(WAREHOUSE_MODEL_NAME, allWarehouse);
-            mv.addObject(SHIPPER_MODEL_NAME, allShipper);
+            mv.addObject(LIST_WAREHOUSE_MODEL_NAME, allWarehouse);
+            mv.addObject(LIST_SHIPPER_MODEL_NAME, allShipper);
 
             String selectedDate = request.getParameter(PARAMETER_DATE);
             String selectedShipper = request.getParameter(PARAMETER_SHIPPER);
@@ -68,10 +71,19 @@ public class ViewIncomingDocumentController extends AbstractController {
             }
             List<IncomingDocument> infoToIncomingDocument = incomingDocument.getInfoToIncomingDocument(
                     date1, date2, selectedShipper, selectedWarehouse);
+
             mv.addObject(INCOMING_MODEL_NAME, infoToIncomingDocument);
             result = mv;
-        } catch (Exception ex) {
 
+            if (infoToIncomingDocument.size() > 0) {
+            } else {
+                mv.setViewName(INCOMING_ERROR_VIEW_NAME);
+                mv.addObject(SELECTED_DATE_MODEL_NAME, selectedDate);
+                mv.addObject(SELECTED_SHIPPER_MODEL_NAME, selectedShipper);
+                mv.addObject(SELECTED_WAREHOUSE_MODEL_NAME, selectedWarehouse);
+            }
+
+        } catch (Exception ex) {
         }
         return result;
     }

@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
+import service.ProductError;
 import ua.testwarehouse.shumenko.model.dao.CustomerDAO;
 import ua.testwarehouse.shumenko.model.dao.ExpenseDocumentDAO;
 import ua.testwarehouse.shumenko.model.dao.IncomingDocumentDAO;
@@ -30,6 +31,8 @@ import ua.testwarehouse.shumenko.model.entity.Warehouse;
 public class ViewCustomerPageController extends AbstractController {
 
     private final static String CUSTOMER_PAGE_VIEW_NAME = "customer";
+    private final static String CUSTOMER_ERROR_PAGE_VIEW_NAME = "customerError";
+    private final static String CUSTOMER_SUCCESS_PAGE_VIEW_NAME = "customerSuccess";
     private static final String WAREHOUSE_MODEL_NAME = "warehouse";
     private static final String CUSTOMER_MODEL_NAME = "customer";
     private static final String ROW_AMOUNT_MODEL_NAME = "rowAmount";
@@ -51,6 +54,8 @@ public class ViewCustomerPageController extends AbstractController {
     private ExpenseDocumentDAO expenseDocument;
     private IncomingDocumentDAO incomingDocument;
     private Integer rowAmount = 1;
+    private boolean statusErrorPage = false;
+    private List<ProductError> prodErr = new ArrayList();
 
     public ViewCustomerPageController() {
     }
@@ -61,8 +66,11 @@ public class ViewCustomerPageController extends AbstractController {
             HttpServletResponse response) throws Exception {
         ModelAndView result = null;
         try {
+            prodErr.removeAll(prodErr);
+            statusErrorPage = false;
             ModelAndView mv = new ModelAndView();
             mv.setViewName(CUSTOMER_PAGE_VIEW_NAME);
+            
 
             List<Customer> allCustomer = customer.getAllCustomer();
             List<Warehouse> allWarehouse = warehouse.getAllWarehouse();
@@ -92,38 +100,45 @@ public class ViewCustomerPageController extends AbstractController {
                 }
             }
 
-            System.out.println(request.getServletPath());
-
             if (request.getServletPath().equals(SERVLET_PATH_ADD_EXPENSE)) {
                 try {
                     for (int i = 1; i <= rowAmount; i++) {
-                        boolean checkProductAvailability = incomingDocument.checkAvailabilityProductInIncomingFromAllShipper(date, 
+                        boolean checkProductAvailability = incomingDocument.checkAvailabilityProductInIncomingFromAllShipper(date,
                                 selectedWarehouse,
-                                request.getParameter(PARAMETER_PRODUCT + i), 
+                                request.getParameter(PARAMETER_PRODUCT + i),
                                 Double.parseDouble(request.getParameter(PARAMETER_PRICE + i)));
                         if (checkProductAvailability) {
-                            if (expenseDocument.checkAvailabilityProductInExpense(date,
+                            if (expenseDocument.checkAvailabilityProductInExpenseAndUpdate(date,
                                     selectedCustomer,
                                     selectedWarehouse,
                                     request.getParameter(PARAMETER_PRODUCT + i),
                                     Double.parseDouble(request.getParameter(PARAMETER_PRICE + i)),
                                     Double.parseDouble(request.getParameter(PARAMETER_AMOUNT_TO_BE_PAID + i)),
                                     Integer.parseInt(request.getParameter(PARAMETER_AMOUNT + i)))) {
+                                if (statusErrorPage) {
+                                } else {
+                                    mv.setViewName(CUSTOMER_SUCCESS_PAGE_VIEW_NAME);
+                                }
                             } else {
                                 expenseDocument.saveExpense(new ExpenseDocument(date, selectedCustomer, selectedWarehouse,
                                         request.getParameter(PARAMETER_PRODUCT + i),
                                         Integer.parseInt(request.getParameter(PARAMETER_AMOUNT + i)),
                                         Double.parseDouble(request.getParameter(PARAMETER_PRICE + i)),
                                         Double.parseDouble(request.getParameter(PARAMETER_AMOUNT_TO_BE_PAID + i))));
+                                if (statusErrorPage) {
+                                } else {
+                                    mv.setViewName(CUSTOMER_SUCCESS_PAGE_VIEW_NAME);
+                                }
                             }
-                        } else {
-                            List<String> dateErr = new ArrayList<String>();
-                            List<String> prodErr = new ArrayList<String>();
-                            List<String> whErr = new ArrayList<String>();
-                            prodErr.add(request.getParameter(PARAMETER_PRODUCT + i));
+                        } else {                            
+                            prodErr.add(new ProductError(request.getParameter(PARAMETER_PRODUCT + i),
+                                    selectedWarehouse,
+                                    selectedDate));
                             mv.addObject(ERR_MSG_NOT_AVAILALE_PRODUCT, prodErr);
-                            mv.addObject(ERR_MSG_WAREHOUSE,selectedWarehouse);
-                            mv.addObject(ERR_MSG_DATE,selectedDate);
+                            mv.addObject(ERR_MSG_WAREHOUSE, selectedWarehouse);
+                            mv.addObject(ERR_MSG_DATE, selectedDate);
+                            mv.setViewName(CUSTOMER_ERROR_PAGE_VIEW_NAME);
+                            statusErrorPage = true;
                         }
 
                     }
