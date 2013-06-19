@@ -36,6 +36,7 @@ public class ViewIncomingDocumentController extends AbstractController {
     private static final String SELECTED_WAREHOUSE_MODEL_NAME = "selectedWarehouse";
     private static final String SELECTED_SHIPPER_MODEL_NAME = "selectedShipper";
     private static final String SELECTED_DATE_MODEL_NAME = "selectedDate";
+   
     private ShipperDAO shipper;
     private WarehouseDAO warehouse;
     private IncomingDocumentDAO incomingDocument;

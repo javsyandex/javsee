@@ -36,6 +36,7 @@ public class ViewExpenseDocumentController extends AbstractController {
     private static final String SELECTED_WAREHOUSE_MODEL_NAME = "selectedWarehouse";
     private static final String SELECTED_CUSTOMER_MODEL_NAME = "selectedCustomer";
     private static final String SELECTED_DATE_MODEL_NAME = "selectedDate";
+    
     private CustomerDAO customer;
     private WarehouseDAO warehouse;
     private ExpenseDocumentDAO expenseDocument;

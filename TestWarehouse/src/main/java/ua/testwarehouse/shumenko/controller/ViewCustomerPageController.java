@@ -48,6 +48,7 @@ public class ViewCustomerPageController extends AbstractController {
     private static final String ERR_MSG_NOT_AVAILALE_PRODUCT = "productError";
     private static final String ERR_MSG_WAREHOUSE = "warehouseError";
     private static final String ERR_MSG_DATE = "dateError";
+    
     private WarehouseDAO warehouse;
     private CustomerDAO customer;
     private ProductDAO product;

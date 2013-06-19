@@ -41,6 +41,7 @@ public class ViewShipperPageController extends AbstractController {
     private static final String PARAMETER_AMOUNT = "amount";
     private static final String PARAMETER_AMOUNT_TO_BE_PAID = "amountToBePaid";
     private static final String SERVLET_PATH_ADD_INCOMING = "/addShipperInfo.htm";
+  
     private WarehouseDAO warehouse;
     private ShipperDAO shipper;
     private ProductDAO product;
