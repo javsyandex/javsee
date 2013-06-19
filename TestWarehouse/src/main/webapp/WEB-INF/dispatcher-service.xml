@@ -59,7 +59,7 @@
           p:product-ref="product"
     />
     
-    <bean name="remainderList" class="service.GetRemainderList"
+    <bean name="remainderList" class="ua.testwarehouse.shumenko.service.GetRemainderList"
           p:expenseDocumentDao-ref="viewExpenseDocument"
           p:incomingDocumentDao-ref="viewIncomingDocument"
           p:productDao-ref="product"

@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
-import service.ProductError;
+import ua.testwarehouse.shumenko.service.ProductError;
 import ua.testwarehouse.shumenko.model.dao.CustomerDAO;
 import ua.testwarehouse.shumenko.model.dao.ExpenseDocumentDAO;
 import ua.testwarehouse.shumenko.model.dao.IncomingDocumentDAO;

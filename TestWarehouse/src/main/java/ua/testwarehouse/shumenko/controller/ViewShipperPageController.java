@@ -20,7 +20,6 @@ import ua.testwarehouse.shumenko.model.entity.IncomingDocument;
 import ua.testwarehouse.shumenko.model.entity.Product;
 import ua.testwarehouse.shumenko.model.entity.Shipper;
 import ua.testwarehouse.shumenko.model.entity.Warehouse;
-import ua.testwarehouse.shumenko.validator.IncomingValidator;
 
 /**
  *
