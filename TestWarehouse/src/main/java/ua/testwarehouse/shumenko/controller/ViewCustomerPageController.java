@@ -45,7 +45,7 @@ public class ViewCustomerPageController extends AbstractController {
     private static final String PARAMETER_AMOUNT = "amount";
     private static final String PARAMETER_AMOUNT_TO_BE_PAID = "amountToBePaid";
     private static final String SERVLET_PATH_ADD_EXPENSE = "/addCustomerInfo.htm";
-    private static final String ERR_MSG_NOT_AVAILALE_PRODUCT = "productError";
+    private static final String ERR_MSG_NOT_AVAILABLE_PRODUCT = "productError";
     private static final String ERR_MSG_WAREHOUSE = "warehouseError";
     private static final String ERR_MSG_DATE = "dateError";
     
@@ -135,7 +135,7 @@ public class ViewCustomerPageController extends AbstractController {
                             prodErr.add(new ProductError(request.getParameter(PARAMETER_PRODUCT + i),
                                     selectedWarehouse,
                                     selectedDate));
-                            mv.addObject(ERR_MSG_NOT_AVAILALE_PRODUCT, prodErr);
+                            mv.addObject(ERR_MSG_NOT_AVAILABLE_PRODUCT, prodErr);
                             mv.addObject(ERR_MSG_WAREHOUSE, selectedWarehouse);
                             mv.addObject(ERR_MSG_DATE, selectedDate);
                             mv.setViewName(CUSTOMER_ERROR_PAGE_VIEW_NAME);
